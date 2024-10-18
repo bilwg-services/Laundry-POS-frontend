@@ -1,0 +1,35 @@
+<!-- login.component.html -->
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+      <div class="flex justify-center mb-6">
+        <img src="assets/laundry-icon.svg" alt="Laundry Icon" class="h-16 w-16">
+      </div>
+      <h2 class="text-2xl font-semibold text-center mb-6">Login to Laundry POS</h2>
+      <form (submit)="onSubmit()" #loginForm="ngForm">
+        <div class="mb-4">
+          <label class="block text-gray-700" for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            [(ngModel)]="email"
+            class="mt-1 p-2 border border-gray-300 rounded w-full"
+          />
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700" for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            [(ngModel)]="password"
+            class="mt-1 p-2 border border-gray-300 rounded w-full"
+          />
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
+      </form>
+    </div>
+  </div>
+  

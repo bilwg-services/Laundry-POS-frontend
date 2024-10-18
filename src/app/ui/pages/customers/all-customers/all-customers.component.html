@@ -1,0 +1,91 @@
+<div class="p-6">
+    <header class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">Customers</h1>
+        <div class="flex items-center space-x-4">
+            <mat-form-field>
+                <input matInput placeholder="Search..." [(ngModel)]="searchTerm" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Status" [(ngModel)]="selectedStatus">
+                    <mat-option value="all">All</mat-option>
+                    <mat-option value="active">Active</mat-option>
+                    <mat-option value="inactive">Inactive</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addCustomer()">Add Customer</button>
+        </div>
+    </header>
+
+    <div class="flex mb-4">
+        <button mat-button (click)="viewMode = 'table'">Table View</button>
+        <button mat-button (click)="viewMode = 'card'">Card View</button>
+    </div>
+
+    <!-- Customers List -->
+    <div *ngIf="viewMode === 'table'">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.firstName }} {{ customer.lastName }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef>Phone</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.phone }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="address">
+                <th mat-header-cell *matHeaderCellDef>Address</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="loyaltyPoints">
+                <th mat-header-cell *matHeaderCellDef>Loyalty Points</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.loyaltyPoints }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="discountEligibility">
+                <th mat-header-cell *matHeaderCellDef>Discount Eligibility</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.discountEligibility ? 'Yes' : 'No' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Created At</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.createdAt | date }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedAt">
+                <th mat-header-cell *matHeaderCellDef>Updated At</th>
+                <td mat-cell *matCellDef="let customer">{{ customer.updatedAt | date }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <br>
+    </div>
+
+    <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <mat-card *ngFor="let customer of customers | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="bg-white border border-gray-300 p-4 rounded shadow">
+            <mat-card-title>{{ customer.firstName }} {{ customer.lastName }}</mat-card-title>
+            <mat-card-content>
+                <p>Email: {{ customer.email }}</p>
+                <p>Phone: {{ customer.phone }}</p>
+                <p>Address: {{ customer.address }}</p>
+                <p>Loyalty Points: {{ customer.loyaltyPoints }}</p>
+                <p>Discount Eligibility: {{ customer.discountEligibility ? 'Yes' : 'No' }}</p>
+                <p>Created At: {{ customer.createdAt | date }}</p>
+                <p>Updated At: {{ customer.updatedAt | date }}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <mat-paginator [pageSize]="itemsPerPage"  [pageSizeOptions]="[ 10, 25, 30, 50, 100]" (page)="onPageChange($event)" showFirstLastButtons
+    aria-label="Select page"></mat-paginator>
+
+</div>

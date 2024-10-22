@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthServiceService } from '../../../../services/auth.service.service';
+import { AuthService } from '../../../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Snackbar for success/failure notifications
 
@@ -15,7 +15,7 @@ export class LoginComponent {
   loginError: string = ''; // Holds error messages for invalid credentials, etc.
 
   constructor(
-    private authService: AuthServiceService,
+    private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {}

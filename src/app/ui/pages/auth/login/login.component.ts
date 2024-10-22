@@ -27,7 +27,7 @@ export class LoginComponent {
   }
 
   // Handle form submission and validation
-  onSubmit() {
+  async onSubmit() {
     // Frontend validation
     if (!this.email || !this.password) {
       this.loginError = 'Email and password are required';
@@ -42,29 +42,30 @@ export class LoginComponent {
     // Reset any previous login errors
     this.loginError = '';
 
-    // Call the login service and handle success and failure scenarios
-    this.authService.login(this.email, this.password).then((response) => {
-      console.log(response, 'response login');
+    try {
+      // Await the login service response
+      const response = await this.authService.login(this.email, this.password);
+
       if (response && response.status === 200) {
         // On successful login, navigate to home and show success snackbar
         this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
         this.router.navigate(['/dashboard']);
       } else {
-        // Handle cases where login is unsuccessful (e.g., wrong credentials)
-        this.loginError = response.message || 'Invalid credentials. Please try again.';
+        if (response.status === 401) {
+          this.loginError = 'Invalid credentials. Please try again.';
+        } else if (response.status === 500) {
+          this.loginError = 'Internal server error. Please try again later.';
+        } else {
+          this.loginError = response.message || 'Invalid credentials. Please try again.';
+        }
       }
-    }).catch((error) => {
+    } catch (error: any) {
       // Handle different errors (like network errors, server issues, etc.)
-      if (error.status === 401) {
-        this.loginError = 'Invalid credentials. Please try again.';
-      } else if (error.status === 500) {
-        this.loginError = 'Internal server error. Please try again later.';
-      } else {
         this.loginError = 'Login failed. Please try again.';
-      }
 
       // Log the error for debugging purposes (optional)
       console.error('Login error:', error);
-    });
+    }
   }
+
 }

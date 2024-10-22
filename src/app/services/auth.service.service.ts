@@ -23,7 +23,7 @@ export class AuthServiceService {
       // Ensure that the response structure matches your API output
       if (response && (response as any).status === 200) {
         const token = (response as any).token; // Use the correct path to get the token
-        localStorage.setItem('token', token);
+        localStorage.setItem('authToken', token);
         console.log('Returning login successful with token:', token);
         return { status: 200, message: 'Login successful', token }; // Return the token and status
       } else {

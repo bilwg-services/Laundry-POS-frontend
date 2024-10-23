@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment';
 import { Observable } from 'rxjs';
+import { Customer } from '../model/customers';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,22 @@ export class CustomerService {
     }
 
     return this.http.get(`${this.baseUrl}/customers`, { params, headers});
+  }
+
+
+  createCustomer(customer: Customer): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const orgId = localStorage.getItem('organizationId');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const customerData = { ...customer, organization_id: orgId };
+
+    return this.http.post(`${this.baseUrl}/customers`, customerData, { headers });
+  }
+
+  uploadCsv(formData: FormData): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/customers/upload`, formData, { headers });
   }
   
 }

@@ -3,6 +3,7 @@ import { Customer } from '../../../../model/customers';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CustomerService } from '../../../../services/customer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-customers',
@@ -21,7 +22,7 @@ export class AllCustomersComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(private customerService: CustomerService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchCustomers();
@@ -50,7 +51,7 @@ export class AllCustomersComponent {
   }
 
   addCustomer(): void {
-    // Implement add customer functionality
+    this.router.navigate(['/customer/new']);
   }
 
 }

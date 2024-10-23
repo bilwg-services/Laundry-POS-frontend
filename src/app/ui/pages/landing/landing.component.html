@@ -92,41 +92,37 @@
           <p class="text-xs text-gray-500">{{this.user?.status}}</p>
         </div>
       </div>
-
-
     </div>
   </aside>
 
-  <main class="flex-1 p-4 md:p-6">
-    <header class="flex items-center justify-between mb-4 flex-col md:flex-row">
+  <main class="flex-1  overflow-y-auto">
+    <header class="flex items-center p-4 md:p-4 justify-between  flex-col md:flex-row sticky top-0 bg-white z-10 shadow-md">
       <div class="flex space-x-4 mb-4 md:mb-0">
-        <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create Order</button>
+      <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create Order</button>
 
-        <!-- Search Bar -->
-        <div class="relative">
-          <input
-            type="text"
-            placeholder="Search..."
-            class="bg-gray-200 text-gray-800 rounded-full pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
-          />
-          <span class="absolute left-3 top-2.5 text-gray-500">🔍</span>
-        </div>
+      <!-- Search Bar -->
+      <div class="relative">
+        <input
+        type="text"
+        placeholder="Search..."
+        class="bg-gray-200 text-gray-800 rounded-full pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+        />
+        <span class="absolute left-3 top-2.5 text-gray-500">🔍</span>
+      </div>
       </div>
 
       <img
-        src="{{ this.user?.profile_image ? this.user?.profile_image : ('https://avatar.iran.liara.run/public/boy?username=' + this.user?.first_name) }}"
-        alt="User Profile" class="h-10 w-10 rounded-full" (click)="toggleDropdown()">
+      src="{{ this.user?.profile_image ? this.user?.profile_image : ('https://avatar.iran.liara.run/public/boy?username=' + this.user?.first_name) }}"
+      alt="User Profile" class="h-10 w-10 rounded-full" (click)="toggleDropdown()">
 
 
       <div *ngIf="dropdownOpen" class="absolute right-0 mt-20 mr-2 w-48 bg-white border rounded shadow-lg">
-        <div (click)="logout()"
-             class="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer flex items-center">
-          <span class="material-icons text-red-500 mr-2">logout</span>
-          <span>Logout</span>
-        </div>
+      <div (click)="logout()"
+         class="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer flex items-center">
+        <span class="material-icons text-red-500 mr-2">logout</span>
+        <span>Logout</span>
       </div>
-
-
+      </div>
     </header>
 
     <router-outlet></router-outlet>

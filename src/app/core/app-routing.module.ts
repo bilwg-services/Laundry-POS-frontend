@@ -7,6 +7,7 @@ import { AllCustomersComponent } from '../ui/pages/customers/all-customers/all-c
 import {AuthGuard} from '../guard/auth.guard';
 import {LoginGuard} from '../guard/login.guard';
 import { SelectOrganizationComponent } from '../ui/pages/auth/select-organization/select-organization.component';
+import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-customer.component';
 
 const routes: Routes = [
   {
@@ -36,8 +37,14 @@ const routes: Routes = [
       {
         path: 'customer',
         component: AllCustomersComponent,
-        canActivate: [AuthGuard] // Protect with AuthGuard
+        canActivate: [AuthGuard], // Protect with AuthGuard
       },
+      {
+        path: 'customer/new',
+        component: NewCustomerComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      
     ]
   }
 ];

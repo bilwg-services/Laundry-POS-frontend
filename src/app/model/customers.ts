@@ -1,12 +1,13 @@
 export interface Customer {
-    firstName: string;
-    lastName: string;
+  first_name: string;
+  last_name: string;
     email: string;
-    phone: string;
+    phone_number: string;
     address: string;
-    loyaltyPoints: number;
-    discountEligibility: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    loyalty_points: number;
+    discount_eligibility: boolean;
+    created_at: Date;
+    updated_at: Date;
+    biographic_info: string;
   }
   

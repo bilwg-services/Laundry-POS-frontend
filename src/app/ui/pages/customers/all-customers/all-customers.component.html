@@ -17,8 +17,8 @@
     </header>
 
     <div class="flex mb-4">
-        <button mat-button (click)="viewMode = 'table'">Table View</button>
-        <button mat-button (click)="viewMode = 'card'">Card View</button>
+        <button mat-button (click)="viewMode = 'table'" class="text-gray-900 dark:text-gray-100">Table View</button>
+        <button mat-button (click)="viewMode = 'card'" class="text-gray-900 dark:text-gray-100">Card View</button>
     </div>
 
     <!-- Customers List -->
@@ -78,7 +78,7 @@
 
     
     <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <mat-card *ngFor="let customer of dataSource.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="bg-white border border-gray-300 p-4 rounded shadow">
+        <mat-card *ngFor="let customer of dataSource.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="bg-white dark:bg-gray-900  border border-gray-300 p-4 rounded shadow">
             <mat-card-title>{{ customer.first_name }} {{ customer.last_name }}</mat-card-title>
             <mat-card-content>
                 <p>Email: {{ customer.email }}</p>

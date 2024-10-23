@@ -11,10 +11,13 @@ export class LandingComponent {
 
   user: User | null = null;
   dropdownOpen = false;
+  darkMode: boolean = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.darkMode = localStorage.getItem('darkMode') === 'true';
+    this.updateBodyClass();
     this.loadCurrentUser();
   }
 
@@ -38,9 +41,27 @@ export class LandingComponent {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+
+  toggleDarkMode(): void {
+    this.darkMode = !this.darkMode;
+    localStorage.setItem('darkMode', this.darkMode.toString());
+    this.updateBodyClass();
+  }
+
+  private updateBodyClass(): void {
+    if (this.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+
   async logout() {
     // Implement your logout logic here
     await this.authService.logout();
   }
+
+
+  
 
 }

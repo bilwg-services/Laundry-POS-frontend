@@ -7,6 +7,9 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import '@angular/material/prebuilt-themes/indigo-pink.css'; // Default theme
 
+body.dark {
+  @apply bg-gray-900 text-gray-100;
+}
 
 .snackbar-success {
   background-color: #4caf50;

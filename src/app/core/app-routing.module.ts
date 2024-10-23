@@ -6,12 +6,18 @@ import { LandingComponent } from '../ui/pages/landing/landing.component';
 import { AllCustomersComponent } from '../ui/pages/customers/all-customers/all-customers.component';
 import {AuthGuard} from '../guard/auth.guard';
 import {LoginGuard} from '../guard/login.guard';
+import { SelectOrganizationComponent } from '../ui/pages/auth/select-organization/select-organization.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
     canActivate: [LoginGuard] // Prevent logged-in users from accessing login
+  },
+  {
+    path: 'select-role',
+    component: SelectOrganizationComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: '',

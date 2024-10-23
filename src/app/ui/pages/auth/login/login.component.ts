@@ -49,7 +49,6 @@ export class LoginComponent {
       if (response && response.status === 200) {
         // On successful login, navigate to home and show success snackbar
         this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
-        this.router.navigate(['/dashboard']);
       } else {
         if (response.status === 401) {
           this.loginError = 'Invalid credentials. Please try again.';

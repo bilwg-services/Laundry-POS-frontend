@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { SelectOrganizationComponent } from './ui/pages/auth/select-organization/select-organization.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     LoginComponent,
     DashboardComponent,
     LandingComponent,
-    AllCustomersComponent
+    AllCustomersComponent,
+    SelectOrganizationComponent
   ],
   imports: [
     BrowserModule,

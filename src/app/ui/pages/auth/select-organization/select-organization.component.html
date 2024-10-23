@@ -1,0 +1,15 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Select Your Role</h2>
+      <ul>
+        <li *ngFor="let role of roles" class="mb-4">
+          <button
+            (click)="selectRole(role)"
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            {{ role.role }} ({{ role.organization_id }})
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>

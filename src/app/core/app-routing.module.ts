@@ -8,6 +8,7 @@ import {AuthGuard} from '../guard/auth.guard';
 import {LoginGuard} from '../guard/login.guard';
 import { SelectOrganizationComponent } from '../ui/pages/auth/select-organization/select-organization.component';
 import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-customer.component';
+import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/update-customer.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
         component: NewCustomerComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
       },
+      {
+        path: 'customer/:id',
+        component: UpdateCustomerComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      }
       
     ]
   }

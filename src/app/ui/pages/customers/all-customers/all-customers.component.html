@@ -64,6 +64,13 @@
                 <td mat-cell *matCellDef="let customer">{{ customer.updated_at | date }}</td>
             </ng-container>
 
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let customer">
+                <button mat-button mat-stroked-button (click)="viewCustomer(customer.customer_id)">View</button>
+                </td>
+              </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="matColumnDef"></tr>
             <tr mat-row *matRowDef="let row; columns: matColumnDef"></tr>
         </table>

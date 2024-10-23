@@ -21,6 +21,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { SelectOrganizationComponent } from './ui/pages/auth/select-organization/select-organization.component';
 import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-customer.component';
+import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/update-customer.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-cust
     LandingComponent,
     AllCustomersComponent,
     SelectOrganizationComponent,
-    NewCustomerComponent
+    NewCustomerComponent,
+    UpdateCustomerComponent
   ],
   imports: [
     BrowserModule,

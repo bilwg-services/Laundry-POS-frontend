@@ -18,7 +18,7 @@ export class AllCustomersComponent {
   itemsPerPage: number = 10;
   currentPage: number = 1;
 
-  matColumnDef:string[] = ['name', 'email', 'phone', 'address', 'loyaltyPoints', 'discountEligibility'];
+  matColumnDef:string[] = ['name', 'email', 'phone', 'address', 'loyaltyPoints', 'discountEligibility', 'actions'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -52,6 +52,10 @@ export class AllCustomersComponent {
 
   addCustomer(): void {
     this.router.navigate(['/customer/new']);
+  }
+
+  viewCustomer(customerId: number): void {
+    this.router.navigate(['/customer', customerId]);
   }
 
 }

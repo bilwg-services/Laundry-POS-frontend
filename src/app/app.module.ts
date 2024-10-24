@@ -22,6 +22,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { SelectOrganizationComponent } from './ui/pages/auth/select-organization/select-organization.component';
 import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/update-customer.component';
+import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-paginator.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/up
     AllCustomersComponent,
     SelectOrganizationComponent,
     NewCustomerComponent,
-    UpdateCustomerComponent
+    UpdateCustomerComponent,
+    CustomPaginatorComponent
   ],
   imports: [
     BrowserModule,

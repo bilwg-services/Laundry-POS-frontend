@@ -1,84 +1,160 @@
 <div class="p-6">
     <header class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Customers</h1>
+
         <div class="flex items-center space-x-4">
-            <mat-form-field>
-                <input matInput placeholder="Search..." [(ngModel)]="searchTerm" (ngModelChange)="fetchCustomers()" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-select placeholder="discountEligibility" [(ngModel)]="selectedDiscountType" (selectionChange)="fetchCustomers()">
-                    <mat-option value="all">All</mat-option>
-                    <mat-option value="true">Eligible</mat-option>
-                    <mat-option value="false">Ineligible</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-raised-button color="primary" (click)="addCustomer()">Add Customer</button>
+            <button (click)="viewMode = 'table'"
+            [ngClass]="{'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'table', 'text-gray-500': viewMode !== 'table'}"
+            class="px-4 py-2">Table View</button>
+            <button (click)="viewMode = 'card'"
+            [ngClass]="{'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'card', 'text-gray-500': viewMode !== 'card'}"
+            class="px-4 py-2">Card View</button>
         </div>
+
+
+        <div class="flex items-center space-x-4">
+            <button mat-icon-button (click)="toggleFilter()">
+                <span class="material-icons">filter_list</span>
+            </button>
+            <button mat-icon-button (click)="toggleSort()">
+                <span class="material-icons">sort</span>
+            </button>
+            <button mat-icon-button *ngIf="!searchActive" (click)="toggleSearch()">
+                <span class="material-icons">search</span>
+            </button>
+
+            <div class="relative flex justify-center" *ngIf="searchActive">
+                <input type="text" placeholder="Search..."
+                    class="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg border dark:border-gray-300 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" (input)="onSearchInput($event)" />
+                <span class="absolute left-3 top-2.5 text-gray-500" (click)="toggleSearch()">🔍</span>
+            </div>
+
+            <button mat-raised-button color="primary" (click)="addCustomer()"
+                class="dark:bg-blue-700 dark:text-gray-100">Add Customer</button>
+        </div>
+
+
     </header>
 
-    <div class="flex mb-4">
-        <button mat-button (click)="viewMode = 'table'" class="text-gray-900 dark:text-gray-100">Table View</button>
-        <button mat-button (click)="viewMode = 'card'" class="text-gray-900 dark:text-gray-100">Card View</button>
+    <div *ngIf="filterActive || sortActive" class="mb-4">
+        <div class="flex space-x-4 items-center mb-4" *ngIf="filterActive">
+            <div class="text-md">Filter</div>
+            <div class="relative">
+                <select [(ngModel)]="selectedDiscountType" (change)="fetchCustomers()"
+                    class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="all">Discount Eligibility</option>
+                    <option value="true">Discount Eligibility: Eligible</option>
+                    <option value="false">Discount Eligibility: Ineligible</option>
+                </select>
+                <div
+                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M7 10l5 5 5-5H7z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex space-x-4 items-center  mb-4" *ngIf="sortActive">
+            <div class="text-md">Sort</div>
+            <div class="relative">
+                <select [(ngModel)]="selectedSortType" (change)="fetchCustomers()"
+                    class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="first_name">Name</option>
+                    <option value="email">Email</option>
+                    <option value="created_at">Created At</option>
+                    <option value="updated_at">Updated At</option>
+                    <option value="loyalty_points">Loyalty Points</option>
+                    <option value="discount_eligibility">Discount Eligibility</option>
+                    <option value="phone_number">Phone</option>
+                    <option value="address">Address</option>
+                </select>
+                <div
+                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M7 10l5 5 5-5H7z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="relative">
+                <select [(ngModel)]="selectedSortMethed" (change)="fetchCustomers()"
+                    class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+                <div
+                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M7 10l5 5 5-5H7z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
 
     <!-- Customers List -->
     <div *ngIf="viewMode === 'table'">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1 dark:bg-gray-900">
             <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.first_name }} {{ customer.last_name }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Name</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.first_name }} {{ customer.last_name }}</td>
             </ng-container>
 
             <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef>Email</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.email }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Email</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.email }}</td>
             </ng-container>
 
             <ng-container matColumnDef="phone">
-                <th mat-header-cell *matHeaderCellDef>Phone</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.phone_number }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Phone</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.phone_number }}</td>
             </ng-container>
 
             <ng-container matColumnDef="address">
-                <th mat-header-cell *matHeaderCellDef>Address</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.address }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Address</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.address }}</td>
             </ng-container>
 
             <ng-container matColumnDef="loyaltyPoints">
-                <th mat-header-cell *matHeaderCellDef>Loyalty Points</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.loyalty_points }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Loyalty Points</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.loyalty_points }}</td>
             </ng-container>
 
             <ng-container matColumnDef="discountEligibility">
-                <th mat-header-cell *matHeaderCellDef>Discount Eligibility</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.discount_eligibility ? 'Yes' : 'No' }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Discount Eligibility</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.discount_eligibility ? 'Yes' : 'No' }}</td>
             </ng-container>
 
             <ng-container matColumnDef="createdAt">
-                <th mat-header-cell *matHeaderCellDef>Created At</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.created_at | date }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Created At</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.created_at | date }}</td>
             </ng-container>
 
             <ng-container matColumnDef="updatedAt">
-                <th mat-header-cell *matHeaderCellDef>Updated At</th>
-                <td mat-cell *matCellDef="let customer">{{ customer.updated_at | date }}</td>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Updated At</th>
+                <td mat-cell *matCellDef="let customer" class="dark:text-gray-200">{{ customer.updated_at | date }}</td>
             </ng-container>
 
             <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Actions</th>
                 <td mat-cell *matCellDef="let customer">
-                <button mat-button mat-stroked-button (click)="viewCustomer(customer.customer_id)">View</button>
+                    <button (click)="viewCustomer(customer.customer_id)" class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">View</button>
                 </td>
-              </ng-container>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="matColumnDef"></tr>
             <tr mat-row *matRowDef="let row; columns: matColumnDef"></tr>
         </table>
     </div>
 
-    
-    <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <mat-card *ngFor="let customer of dataSource.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="bg-white dark:bg-gray-900  border border-gray-300 p-4 rounded shadow">
+
+    <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+        <mat-card
+            *ngFor="let customer of dataSource.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"
+            class="bg-white dark:bg-gray-900  border border-gray-300 p-4 rounded shadow">
             <mat-card-title>{{ customer.first_name }} {{ customer.last_name }}</mat-card-title>
             <mat-card-content>
                 <p>Email: {{ customer.email }}</p>
@@ -92,5 +168,6 @@
         </mat-card>
     </div>
 
-    <mat-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 30, 50, 100]" (page)="onPageChange($event)" showFirstLastButtons aria-label="Select page"></mat-paginator>
+    <app-custom-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 30, 50, 100]"
+        [length]="dataSource.data.length" (page)="onPageChange($event)"></app-custom-paginator>
 </div>

@@ -27,7 +27,6 @@ export class AllCustomersComponent {
 
   matColumnDef:string[] = ['name', 'email', 'phone', 'address', 'loyaltyPoints', 'discountEligibility', 'actions'];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private customerService: CustomerService, private router: Router) {}
 
@@ -52,7 +51,6 @@ export class AllCustomersComponent {
     this.customerService.getAllCustomers(this.currentPage, this.itemsPerPage, this.selectedSortType, this.selectedSortMethed, this.searchTerm, filters).subscribe(response => {
       if (response.status === 200) {
         this.dataSource.data = response.data;
-        this.paginator.length = response.total; // Assuming the API response includes the total number of items
       } else {
         console.error('Failed to fetch customers:', response.message);
       }
@@ -89,5 +87,6 @@ export class AllCustomersComponent {
   onSearchInput(event: any): void {
     this.searchSubject.next(event.target.value);
   }
+ 
 
 }

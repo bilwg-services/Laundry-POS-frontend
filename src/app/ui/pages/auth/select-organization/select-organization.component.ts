@@ -19,7 +19,14 @@ export class SelectOrganizationComponent {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let darkMode = localStorage.getItem('darkMode') === 'true';
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
 
   selectRole(role: any): void {
     localStorage.setItem('organizationId', role.organization_id);

@@ -1,5 +1,5 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+<div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+  <div class="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-md w-full max-w-sm">
     <div class="flex justify-center mb-6">
       <img src="assets/laundry-icon.svg" alt="Laundry Icon" class="h-16 w-16">
     </div>
@@ -7,14 +7,14 @@
     <!-- Form starts here -->
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="mb-4">
-        <label class="block text-gray-700" for="email">Email</label>
+        <label class="block text-gray-700 dark:text-gray-200" for="email">Email</label>
         <input
           type="email"
           id="email"
           name="email"
           required
           [(ngModel)]="email"
-          class="mt-1 p-2 border border-gray-300 rounded w-full"
+          class="mt-1 p-2 border border-gray-300 rounded w-full border dark:border-gray-700  rounded  bg-transparent"
         />
         <!-- Email validation error -->
         <div *ngIf="loginError && !validateEmail(email)" class="text-red-500 text-sm mt-1">
@@ -23,7 +23,7 @@
       </div>
 
       <div class="mb-6">
-        <label class="block text-gray-700" for="password">Password</label>
+        <label class="block text-gray-700 dark:text-gray-200 " for="password">Password</label>
         <input
           type="password"
           id="password"
@@ -31,7 +31,7 @@
           required
           minlength="6"
           [(ngModel)]="password"
-          class="mt-1 p-2 border border-gray-300 rounded w-full"
+          class="mt-1 p-2 border border-gray-300 rounded w-full border dark:border-gray-700  rounded  bg-transparent"
         />
         <!-- Password validation error -->
         <div *ngIf="loginError && !password" class="text-red-500 text-sm mt-1">

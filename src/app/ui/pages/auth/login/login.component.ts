@@ -20,6 +20,15 @@ export class LoginComponent {
     private snackBar: MatSnackBar
   ) {}
 
+  ngOnInit(): void {
+    let darkMode = localStorage.getItem('darkMode') === 'true';
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
+
   // Validate email format
   validateEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

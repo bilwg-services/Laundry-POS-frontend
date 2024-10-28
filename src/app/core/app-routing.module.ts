@@ -10,6 +10,7 @@ import { SelectOrganizationComponent } from '../ui/pages/auth/select-organizatio
 import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/update-customer.component';
 import { AllStaffsComponent } from '../ui/pages/staff/all-staffs/all-staffs.component';
+import { NewStaffComponent } from '../ui/pages/staff/new-staff/new-staff.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,11 @@ const routes: Routes = [
       {
         path: 'staff-management',
         component: AllStaffsComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      {
+        path: 'staff-management/new',
+        component: NewStaffComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
       },
       

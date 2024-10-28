@@ -24,6 +24,7 @@ import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-cust
 import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/update-customer.component';
 import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-paginator.component';
 import { AllStaffsComponent } from './ui/pages/staff/all-staffs/all-staffs.component';
+import { NewStaffComponent } from './ui/pages/staff/new-staff/new-staff.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AllStaffsComponent } from './ui/pages/staff/all-staffs/all-staffs.compo
     NewCustomerComponent,
     UpdateCustomerComponent,
     CustomPaginatorComponent,
-    AllStaffsComponent
+    AllStaffsComponent,
+    NewStaffComponent
   ],
   imports: [
     BrowserModule,

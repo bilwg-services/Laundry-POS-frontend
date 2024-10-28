@@ -1,0 +1,86 @@
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800 p-6">
+    <div class="bg-white dark:bg-gray-900 p-8 rounded shadow-md w-full max-w-lg">
+        <h2 class="text-2xl font-bold mb-6 text-center">Add New Staff</h2>
+
+        <div>
+            <form [formGroup]="customerForm" (ngSubmit)="createStaff()">
+                <div class="mb-4 flex flex-wrap -mx-2">
+                    <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+                        <label class="block text-gray-700 dark:text-gray-200">First Name</label>
+                        <input type="text" formControlName="first_name"
+                            class="w-full px-3 py-2 border dark:border-gray-700  rounded bg-transparent" />
+                        <div *ngIf="customerForm.get('first_name')?.invalid && customerForm.get('first_name')?.touched"
+                            class="text-red-500">
+                            First name is required.
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 px-2">
+                        <label class="block text-gray-700 dark:text-gray-200">Last Name</label>
+                        <input type="text" formControlName="last_name"
+                            class="w-full px-3 py-2 border dark:border-gray-700  rounded  bg-transparent" />
+                        <div *ngIf="customerForm.get('last_name')?.invalid && customerForm.get('last_name')?.touched"
+                            class="text-red-500">
+                            Last name is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-200">Email</label>
+                    <input type="email" formControlName="email"
+                        class="w-full px-3 py-2 border dark:border-gray-700  rounded  bg-transparent" />
+                    <div *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched"
+                        class="text-red-500">
+                        Enter a valid email.
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-200">Phone Number</label>
+                    <input type="text" formControlName="phone_number"
+                        class="w-full px-3 py-2 border dark:border-gray-700 rounded bg-transparent" />
+                    <div *ngIf="customerForm.get('phone_number')?.invalid && customerForm.get('phone_number')?.touched"
+                        class="text-red-500">
+                        Phone number is required.
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-200">Role</label>
+                    <select formControlName="role"
+                        class="block w-full bg-white dark:bg-gray-900 border dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded leading-tight">
+                        <option value="" disabled selected>Select a role</option>
+                        <option value="admin">Admin</option>
+                        <option value="staff">Staff</option>
+                        <option value="manager">Manager</option>
+                        <option value="delivery">Delivery</option>
+                    </select>
+                    <div *ngIf="customerForm.get('role')?.invalid && customerForm.get('role')?.touched"
+                        class="text-red-500">
+                        Role is required.
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">Create
+                    Customer</button>
+            </form>
+        </div>
+
+        <div *ngIf="loginDetails" class="mt-6 p-4 bg-gray-200 dark:bg-gray-700 rounded">
+            <h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100">Login Details</h3>
+            <div class="flex items-center">
+                <p class="text-gray-900 dark:text-gray-100 mb0">Email: {{ loginDetails.email }}</p>
+                <button (click)="copyToClipboard(loginDetails.email)"
+                    class="ml-4 flex justify-center items-center bg-grey-300 text-grey-800 text-xs">
+                    <span class="material-icons text-sm">content_copy</span>
+                </button>
+            </div>
+            <div class="flex items-center mt-2">
+                <p class="text-gray-900 dark:text-gray-100 mb0">Password: {{ loginDetails.password }}</p>
+                <button (click)="copyToClipboard(loginDetails.password)"
+                    class="ml-4 flex justify-center items-center bg-grey-300 text-grey-800 text-xs">
+                    <span class="material-icons text-sm">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

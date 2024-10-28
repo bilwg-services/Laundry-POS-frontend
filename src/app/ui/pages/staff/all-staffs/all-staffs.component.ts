@@ -30,7 +30,7 @@ export class AllStaffsComponent {
   selectedRole: string = 'all';
   selectedRoleStatus: string = 'all';
 
-  matColumnDef: string[] = ['name', 'email', 'phone', 'role', 'status', ];
+  matColumnDef: string[] = ['name', 'email', 'phone', 'role', 'status', 'actions'];
 
 
   constructor(private staffService: StaffService, private router: Router) { }
@@ -131,8 +131,8 @@ export class AllStaffsComponent {
     this.router.navigate(['/staff-management/new']);
   }
 
-  viewStaff(customerId: number): void {
-    this.router.navigate(['/staff-management', customerId]);
+  viewStaff(rel_id: number): void {
+    this.router.navigate(['/staff-management', rel_id]);
   }
 
 

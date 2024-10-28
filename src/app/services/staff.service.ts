@@ -59,4 +59,49 @@ export class StaffService {
   }
 
 
+  getStaffById(rel_id: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    let params = new HttpParams()
+    .set('_complete', "true");
+    return this.http.get(`${this.baseUrl}/user-organization/${rel_id}`, { params, headers });
+  }
+
+  updateStaff(rel_id: number, staffId: number, staff: any): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const orgId = localStorage.getItem('organizationId');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const userData = {
+      first_name: staff.first_name,
+      last_name: staff.last_name,
+      phone_number: staff.phone_number,
+      email: staff.email,
+      profile_image: staff.profile_image,
+      status: staff.status,
+      role: staff.role,
+      roleStatus: staff.roleStatus
+    };
+
+    console.log('roleStatus:', staff.roleStatus);
+
+    return this.http.put(`${this.baseUrl}/user/${staffId}`, userData, { headers }).pipe(
+      switchMap((updateResponse: any) => {
+        if (updateResponse.status === 200) {
+          const userOrganizationData = {
+            user_id: staffId,
+            organization_id: orgId,
+            role: staff.role,
+            status: staff.roleStatus
+          };
+          return this.http.put(`${this.baseUrl}/user-organization/${rel_id}`, userOrganizationData, { headers });
+        } else {
+          throw new Error('User update failed');
+        }
+      })
+    );
+  }
+
+
+
 }

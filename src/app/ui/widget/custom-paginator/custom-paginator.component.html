@@ -1,16 +1,22 @@
-<div class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded shadow">
-    <div class="flex items-center space-x-2">
-      <button (click)="goToPage(0)" [disabled]="currentPage === 0" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">First</button>
-      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Previous</button>
-    </div>
-    <div class="flex items-center space-x-2">
-      <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
-      <select (change)="changePageSize($event)" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">
-        <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">{{ size }}</option>
-      </select>
-    </div>
-    <div class="flex items-center space-x-2">
-      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage >= totalPages - 1" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Next</button>
-      <button (click)="goToPage(totalPages - 1)" [disabled]="currentPage >= totalPages - 1" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Last</button>
-    </div>
+<div
+  class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded shadow">
+  <div class="flex items-center space-x-2">
+    <button (click)="goToPage(0)" [disabled]="currentPage === 0"
+      class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">First</button>
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0"
+      class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Previous</button>
   </div>
+  <div class="flex items-center space-x-4">
+    <span>Page {{ currentPage + 1 }} - {{ totalPages }}</span>
+    <select (change)="changePageSize($event)" class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">
+      <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">{{ size }}</option>
+    </select>
+    <span>Total Entries: {{ length }}</span>
+  </div>
+  <div class="flex items-center space-x-2">
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage >= totalPages - 1"
+      class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Next</button>
+    <button (click)="goToPage(totalPages - 1)" [disabled]="currentPage >= totalPages - 1"
+      class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600">Last</button>
+  </div>
+</div>

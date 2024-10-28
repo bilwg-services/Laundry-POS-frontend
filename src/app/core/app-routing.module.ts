@@ -9,6 +9,7 @@ import {LoginGuard} from '../guard/login.guard';
 import { SelectOrganizationComponent } from '../ui/pages/auth/select-organization/select-organization.component';
 import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/update-customer.component';
+import { AllStaffsComponent } from '../ui/pages/staff/all-staffs/all-staffs.component';
 
 const routes: Routes = [
   {
@@ -49,7 +50,12 @@ const routes: Routes = [
         path: 'customer/:id',
         component: UpdateCustomerComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
-      }
+      },
+      {
+        path: 'staff-management',
+        component: AllStaffsComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
       
     ]
   }

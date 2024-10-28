@@ -9,6 +9,8 @@ import {LoginGuard} from '../guard/login.guard';
 import { SelectOrganizationComponent } from '../ui/pages/auth/select-organization/select-organization.component';
 import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/update-customer.component';
+import {AllExpensesComponent} from '../ui/pages/expenses/all-expenses/all-expenses.component';
+import {UpdateExpenseComponent} from '../ui/pages/expenses/update-expense/update-expense.component';
 
 const routes: Routes = [
   {
@@ -19,7 +21,7 @@ const routes: Routes = [
   {
     path: 'select-role',
     component: SelectOrganizationComponent,
-    canActivate: [AuthGuard] 
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -36,6 +38,21 @@ const routes: Routes = [
         canActivate: [AuthGuard] // Protect with AuthGuard
       },
       {
+        path: 'expense',
+        component: AllExpensesComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      {
+        path: 'expense/new',
+        component: NewCustomerComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      {
+        path: 'expense/:id',
+        component: UpdateExpenseComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      {
         path: 'customer',
         component: AllCustomersComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
@@ -50,7 +67,7 @@ const routes: Routes = [
         component: UpdateCustomerComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
       }
-      
+
     ]
   }
 ];

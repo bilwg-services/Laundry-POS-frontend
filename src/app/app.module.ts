@@ -23,6 +23,9 @@ import { SelectOrganizationComponent } from './ui/pages/auth/select-organization
 import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/update-customer.component';
 import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-paginator.component';
+import { AllExpensesComponent } from './ui/pages/expenses/all-expenses/all-expenses.component';
+import { NewExpenseComponent } from './ui/pages/expenses/new-expense/new-expense.component';
+import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/update-expense.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-pa
     SelectOrganizationComponent,
     NewCustomerComponent,
     UpdateCustomerComponent,
-    CustomPaginatorComponent
+    CustomPaginatorComponent,
+    AllExpensesComponent,
+    NewExpenseComponent,
+    UpdateExpenseComponent
   ],
   imports: [
     BrowserModule,

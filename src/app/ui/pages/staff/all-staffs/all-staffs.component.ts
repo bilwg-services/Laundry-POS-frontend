@@ -53,6 +53,8 @@ export class AllStaffsComponent {
       if (response.status === 200) {
         this.dataSource.data = response.data;
         this.dataList = response.data;
+        this.paginateData();  
+
         console.log('Users fetched successfully:', response.data);
       } else {
         console.error('Failed to fetch customers:', response.message);
@@ -115,6 +117,7 @@ export class AllStaffsComponent {
     });
 
     this.dataSource.data = filteredData;
+    this.paginateData();  
   }
 
   compare(a: string | number, b: string | number, isAsc: boolean): number {
@@ -122,9 +125,18 @@ export class AllStaffsComponent {
   }
 
   onPageChange(event: any): void {
+
     this.currentPage = event.pageIndex + 1;
     this.itemsPerPage = event.pageSize;
-    this.fetchStaff();
+    this.paginateData();
+  }
+
+
+  paginateData(): void {
+    const startIndex = (this.currentPage-1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.dataSource.data = this.dataList.slice(startIndex, endIndex);
+ 
   }
 
   addStaff(): void {

@@ -184,7 +184,7 @@
 
     <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
         <mat-card
-            *ngFor="let customer of dataSource.data | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"
+            *ngFor="let customer of dataSource.data"
             class="bg-white dark:bg-gray-900  border border-gray-300 p-4 rounded shadow">
             <mat-card-title>{{ customer?.user?.first_name }} {{ customer?.user?.last_name }}</mat-card-title>
             <mat-card-content>
@@ -199,5 +199,5 @@
     </div>
 
     <app-custom-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 30, 50, 100]"
-        [length]="dataSource.data.length" (page)="onPageChange($event)"></app-custom-paginator>
+        [length]="dataList.length" (page)="onPageChange($event)"></app-custom-paginator>
 </div>

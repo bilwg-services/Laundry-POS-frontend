@@ -13,7 +13,7 @@
           </a>
         </li>
         <li>
-          <a routerLink="/create-orders" routerLinkActive="active"
+          <a routerLink="/order" routerLinkActive="active"
             class="flex items-center p-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
             <span class="material-icons mr-2">add_shopping_cart</span>
             Orders
@@ -83,7 +83,7 @@
     <header
       class="flex items-center p-4 md:p-4 justify-between  flex-col md:flex-row sticky top-0 bg-white dark:bg-gray-900 z-10 shadow-md">
       <div class="flex space-x-4 mb-4 md:mb-0">
-        <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create Order</button>
+        <button routerLink="/order/new"  class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create Order</button>
 
         <!-- Search Bar -->
         <div class="relative">

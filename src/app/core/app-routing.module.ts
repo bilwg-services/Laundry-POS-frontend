@@ -12,6 +12,7 @@ import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/u
 import { AllStaffsComponent } from '../ui/pages/staff/all-staffs/all-staffs.component';
 import { NewStaffComponent } from '../ui/pages/staff/new-staff/new-staff.component';
 import { UpdateStaffComponent } from '../ui/pages/staff/update-staff/update-staff.component';
+import { NewOrderComponent } from '../ui/pages/order/new-order/new-order.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,16 @@ const routes: Routes = [
       {
         path: 'staff-management/:id',
         component: UpdateStaffComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      {
+        path: 'order',
+        component: AllStaffsComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+      {
+        path: 'order/new',
+        component: NewOrderComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
       },
       

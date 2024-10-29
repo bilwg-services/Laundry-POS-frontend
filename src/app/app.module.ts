@@ -26,6 +26,8 @@ import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-pa
 import { AllStaffsComponent } from './ui/pages/staff/all-staffs/all-staffs.component';
 import { NewStaffComponent } from './ui/pages/staff/new-staff/new-staff.component';
 import { UpdateStaffComponent } from './ui/pages/staff/update-staff/update-staff.component';
+import { NewOrderComponent } from './ui/pages/order/new-order/new-order.component';
+import { NewOrderSingleComponent } from './ui/pages/order/new-order-single/new-order-single.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { UpdateStaffComponent } from './ui/pages/staff/update-staff/update-staff
     CustomPaginatorComponent,
     AllStaffsComponent,
     NewStaffComponent,
-    UpdateStaffComponent
+    UpdateStaffComponent,
+    NewOrderComponent,
+    NewOrderSingleComponent
   ],
   imports: [
     BrowserModule,

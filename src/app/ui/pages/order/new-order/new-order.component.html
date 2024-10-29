@@ -1,0 +1,27 @@
+<div class="min-h-screen flex flex-col items-center bg-gray-100 dark:bg-gray-900 p-6">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow-md w-full ">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">Newly Drafted Orders</h2>
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex space-x-4">
+          <button
+            *ngFor="let tab of tabs; let i = index"
+            (click)="selectTab(i)"
+            [ngClass]="{
+              'bg-indigo-600 hover:bg-indigo-700 text-white': selectedTabIndex == i,
+              'bg-gray-200 hover:bg-indigo-700 text-gray-800 dark:bg-gray-700 dark:text-gray-200': selectedTabIndex != i
+            }"
+            class="px-4 py-2 rounded"
+          >
+            {{ tab.label }}
+            <button (click)="removeTab(i); $event.stopPropagation()" class="ml-2 text-red-500">x</button>
+          </button>
+        </div>
+        <button (click)="addTab()" class="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700">
+          Create New Order
+        </button>
+      </div>
+      <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded">
+        <ng-template #tabContent></ng-template>
+      </div>
+    </div>
+  </div>

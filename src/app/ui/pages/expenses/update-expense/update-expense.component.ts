@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExpenseService } from '../../../../services/expense.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,7 +10,7 @@ import { Expense } from '../../../../model/expense';
   templateUrl: './update-expense.component.html',
   styleUrls: ['./update-expense.component.scss']
 })
-export class UpdateExpenseComponent {
+export class UpdateExpenseComponent implements OnInit {
   viewMode: string = 'details';
   expenseForm: FormGroup;
   expenseId: number = 0;
@@ -70,7 +70,7 @@ export class UpdateExpenseComponent {
           duration: 3000,
           panelClass: ['snackbar-success']
         });
-        this.router.navigate(['/expenses']);
+        this.router.navigate(['/expense']);
       } else {
         this.showError(response);
       }

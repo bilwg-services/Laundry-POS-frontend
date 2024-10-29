@@ -64,7 +64,7 @@ export class AllExpensesComponent {
   }
 
   addExpense(): void {
-    // this.router.navigate(['/expense/new']);
+    this.router.navigate(['/expense/new']);
   }
 
   viewExpense(expenseId: number): void {

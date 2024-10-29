@@ -11,6 +11,7 @@ import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-cus
 import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/update-customer.component';
 import {AllExpensesComponent} from '../ui/pages/expenses/all-expenses/all-expenses.component';
 import {UpdateExpenseComponent} from '../ui/pages/expenses/update-expense/update-expense.component';
+import {NewExpenseComponent} from '../ui/pages/expenses/new-expense/new-expense.component';
 
 const routes: Routes = [
   {
@@ -44,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: 'expense/new',
-        component: NewCustomerComponent,
+        component: NewExpenseComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
       },
       {

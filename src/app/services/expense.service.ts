@@ -42,13 +42,14 @@ console.log('params',params);
   }
 
   createExpense(expense: Expense): Observable<any> {
+    console.log('createExpense called');
+    console.log('expense',expense);
     const token = localStorage.getItem('authToken');
-    const orgId = localStorage.getItem('organizationId');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const expenseData = { ...expense, organization_id: orgId };
 
-    return this.http.post(`${this.baseUrl}`, expenseData, { headers });
+    return this.http.post(`${this.baseUrl}`, expense, { headers });
   }
+
 
   updateExpense(expenseId: number, expense: Expense): Observable<any> {
     const token = localStorage.getItem('authToken');

@@ -1,0 +1,80 @@
+<div class="flex flex-col md:flex-row min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <nav class="w-full md:w-64 bg-gray-200 dark:bg-gray-800 p-4">
+        <h2 class="text-lg font-semibold ">Settings</h2>
+      <ul class="space-y-2">
+        <li>
+          <a routerLink="profile" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+            <span class="material-icons mr-2">supervisor_account</span> Profile
+          </a>
+        </li>
+        <li>
+          <a routerLink="business-profile" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+            <span class="material-icons mr-2">business_center</span> Business Profile
+          </a>
+        </li>
+        <li>
+          <a routerLink="rate-list" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+            <span class="material-icons mr-2">request_quote</span> Rate List
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+            <span class="material-icons mr-2">local_laundry_service</span> Orders
+          </a>
+        </li>
+
+        <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">receipt_long</span> Invoice
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">account_balance</span> Billing
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">storefront</span> Store Front
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">redeem</span> Promo Codes
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">loyalty</span> Loyalty Program
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">manage_accounts</span> Roles & Permissions
+            </a>
+          </li>
+
+          
+      
+
+          
+          <li>
+            <a routerLink="/link3" routerLinkActive="active-link" class="flex items-center p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-700">
+              <span class="material-icons mr-2">apps</span> Add Ons & Integrations
+            </a>
+          </li>
+
+        
+
+      </ul>
+    </nav>
+    <div class="flex-grow p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

@@ -14,6 +14,13 @@ import { NewStaffComponent } from '../ui/pages/staff/new-staff/new-staff.compone
 import { UpdateStaffComponent } from '../ui/pages/staff/update-staff/update-staff.component';
 import { NewOrderComponent } from '../ui/pages/order/new-order/new-order.component';
 
+import { B } from '@angular/cdk/keycodes';
+import { BusinessProfileComponent } from '../ui/pages/settings/business-profile/business-profile.component';
+import { RateListComponent } from '../ui/pages/settings/rate-list/rate-list.component';
+import { SettingsLandingComponent } from '../ui/pages/settings/settings-landing/settings-landing.component';
+import { ProfileComponent } from '../ui/pages/settings/profile/profile.component';
+import { AddServiceComponent } from '../ui/pages/settings/add-service/add-service.component';
+
 const routes: Routes = [
   {
     path: 'login',
@@ -78,6 +85,40 @@ const routes: Routes = [
         path: 'order/new',
         component: NewOrderComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+
+      {
+        path: 'settings',
+        component: SettingsLandingComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+        children: [
+          {
+            path: '',
+            redirectTo: 'profile',
+            pathMatch: 'full'
+          },
+          {
+            path: 'profile',
+            component: ProfileComponent,
+            canActivate: [AuthGuard], // Protect with AuthGuard
+          },
+          {
+            path: 'business-profile',
+            component: BusinessProfileComponent,
+            canActivate: [AuthGuard], // Protect with AuthGuard
+          },      
+           {
+            path: 'rate-list',
+            component: RateListComponent,
+            canActivate: [AuthGuard], // Protect with AuthGuard
+          },
+          {
+            path: 'rate-list/add-service',
+            component: AddServiceComponent,
+            canActivate: [AuthGuard], // Protect with AuthGuard
+          },
+          
+        ]
       },
       
     ]

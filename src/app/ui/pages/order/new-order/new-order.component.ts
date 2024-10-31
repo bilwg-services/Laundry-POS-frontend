@@ -46,8 +46,6 @@ export class NewOrderComponent {
     this.orderService.removeTabState(tabId);
     this.tabs.splice(index, 1);
     this.orderService.saveTabList(this.tabs);
-    console.log('selectedTabIndex before', this.selectedTabIndex);
-    console.log('index before', index);
 
     if (this.selectedTabIndex == index) {
       // If the selected tab is the one being closed
@@ -60,14 +58,12 @@ export class NewOrderComponent {
     if (this.selectedTabIndex >= 0 && this.tabs.length > 0) {
      this.selectTab(this.selectedTabIndex);
     }
-    console.log('selectedTabIndex afeter', this.selectedTabIndex);
 
     // this.loadTabContent();
   }
 
   selectTab(index: number): void {
 
-    console.log('called', index);
 
     this.selectedTabIndex = index;
     this.loadTabContent();
@@ -75,7 +71,6 @@ export class NewOrderComponent {
 
   loadTabContent(): void {
     this.tabContent.clear();
-    console.log('selectedTabIndex in load', this.selectedTabIndex);
     const tab = this.tabs[this.selectedTabIndex];
     if (tab) {
       const factory = this.resolver.resolveComponentFactory(NewOrderSingleComponent);

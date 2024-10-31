@@ -28,6 +28,11 @@ import { NewStaffComponent } from './ui/pages/staff/new-staff/new-staff.componen
 import { UpdateStaffComponent } from './ui/pages/staff/update-staff/update-staff.component';
 import { NewOrderComponent } from './ui/pages/order/new-order/new-order.component';
 import { NewOrderSingleComponent } from './ui/pages/order/new-order-single/new-order-single.component';
+import { BusinessProfileComponent } from './ui/pages/settings/business-profile/business-profile.component';
+import { RateListComponent } from './ui/pages/settings/rate-list/rate-list.component';
+import { SettingsLandingComponent } from './ui/pages/settings/settings-landing/settings-landing.component';
+import { ProfileComponent } from './ui/pages/settings/profile/profile.component';
+import { AddServiceComponent } from './ui/pages/settings/add-service/add-service.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,12 @@ import { NewOrderSingleComponent } from './ui/pages/order/new-order-single/new-o
     NewStaffComponent,
     UpdateStaffComponent,
     NewOrderComponent,
-    NewOrderSingleComponent
+    NewOrderSingleComponent,
+    SettingsLandingComponent,
+    ProfileComponent,
+    BusinessProfileComponent,
+    RateListComponent,
+    AddServiceComponent
   ],
   imports: [
     BrowserModule,

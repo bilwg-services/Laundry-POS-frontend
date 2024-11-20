@@ -33,6 +33,8 @@ import { RateListComponent } from './ui/pages/settings/rate-list/rate-list.compo
 import { SettingsLandingComponent } from './ui/pages/settings/settings-landing/settings-landing.component';
 import { ProfileComponent } from './ui/pages/settings/profile/profile.component';
 import { AddServiceComponent } from './ui/pages/settings/add-service/add-service.component';
+import { AllExpenseComponent } from './ui/pages/expense/all-expense/all-expense.component';
+import { NewExpenseComponent } from './ui/pages/expense/new-expense/new-expense.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { AddServiceComponent } from './ui/pages/settings/add-service/add-service
     ProfileComponent,
     BusinessProfileComponent,
     RateListComponent,
-    AddServiceComponent
+    AddServiceComponent,
+    AllExpenseComponent,
+    NewExpenseComponent
   ],
   imports: [
     BrowserModule,

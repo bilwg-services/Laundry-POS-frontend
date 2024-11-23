@@ -22,6 +22,7 @@ import { ProfileComponent } from '../ui/pages/settings/profile/profile.component
 import { AddServiceComponent } from '../ui/pages/settings/add-service/add-service.component';
 import { AllExpenseComponent } from '../ui/pages/expense/all-expense/all-expense.component';
 import { NewExpenseComponent } from '../ui/pages/expense/new-expense/new-expense.component';
+import { AllPaymentComponent } from '../ui/pages/payment/all-payment/all-payment.component';
 
 const routes: Routes = [
   {
@@ -64,11 +65,16 @@ const routes: Routes = [
         canActivate: [AuthGuard], // Protect with AuthGuard
       },
       {
+        path: 'payments-management',
+        component: AllPaymentComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
+
+      {
         path: 'expense-tracking',
         component: AllExpenseComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
       },
-
       {
         path: 'expense-tracking/new',
         component: NewExpenseComponent,

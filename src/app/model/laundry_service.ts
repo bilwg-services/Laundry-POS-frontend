@@ -2,6 +2,9 @@ export interface LaundryServiceModel {
     id: number;
     name: string;
     price: number;
+    custom_price?: number;
+    percentage: number;
+    price_changed: string | null;
     price_type: string;
     icon: string;
     cgst: number;

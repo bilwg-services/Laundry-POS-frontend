@@ -43,6 +43,15 @@ export class RateListService {
     return this.http.get(`${this.baseUrl}/service`, { params, headers});
   }
 
+  createRateList(rateList: LaundryServiceModel[]): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const orgId = localStorage.getItem('organizationId');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const rateListData = { rateList, organization_id: orgId };
+
+    return this.http.post(`${this.baseUrl}/service/rate-list`, rateListData, { headers });
+  }
+
 
   createService(service: LaundryServiceModel): Observable<any> {
     const token = localStorage.getItem('authToken');

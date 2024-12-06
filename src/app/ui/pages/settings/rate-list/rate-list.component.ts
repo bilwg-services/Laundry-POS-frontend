@@ -3,6 +3,7 @@ import { RateListService } from '../../../../services/rate-list.service';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { LaundryServiceModel } from '../../../../model/laundry_service';
+import { SharedDataService } from '../../../../services/shared';
 
 
 
@@ -15,9 +16,9 @@ import { LaundryServiceModel } from '../../../../model/laundry_service';
 export class RateListComponent {
   searchTerm: unknown;
 
-  constructor(private rateListService: RateListService, private router: Router) {}
+  constructor(private rateListService: RateListService, private router: Router, private sharedDataService: SharedDataService) { }
 
-  
+
   ngOnInit(): void {
     this.fetchServices();
 
@@ -35,19 +36,18 @@ export class RateListComponent {
 
     this.rateListService.getAllServices(
       1, 2000).subscribe(response => {
-      if (response.status === 200) {
-        this.services = response.data;
+        if (response.status === 200) {
+          this.services = response.data;
+          this.filteredServices = this.services;
+          this.categories = [...new Set(this.services.map(service => service.category).filter(category => category))];
+          this.subCategories = [...new Set(this.services.map(service => service.sub_category).filter(sub_category => sub_category))];
+          this.groups = [...new Set(this.services.map(service => service.group_name).filter(group_name => group_name))];
+          this.priceLists = [...new Set(this.services.map(service => service.price_list_id).filter(price_list_id => price_list_id))];
 
-        this.filteredServices = this.services;
-        this.categories = [...new Set(this.services.map(service => service.category).filter(category => category))];
-        this.subCategories = [...new Set(this.services.map(service => service.sub_category).filter(sub_category => sub_category))];
-        this.groups = [...new Set(this.services.map(service => service.group_name).filter(group_name => group_name))];
-        this.priceLists = [...new Set(this.services.map(service => service.price_list_id).filter(price_list_id => price_list_id))];
-
-      } else {
-        console.error('Failed to fetch customers:', response.message);
-      }
-    });
+        } else {
+          console.error('Failed to fetch customers:', response.message);
+        }
+      });
   }
 
   services: LaundryServiceModel[] = [];
@@ -85,8 +85,19 @@ export class RateListComponent {
     console.log('Edit service:', service);
   }
 
-  addService(){
+  addService() {
     this.router.navigate(['/settings/rate-list/add-service']);
   }
-  addPriceList() {}
+
+  addRateList() {
+    this.services = this.services.map((service) => {
+      return {
+        custom_price: service.price,
+        ...service,
+      }
+    })
+    this.sharedDataService.setServices(this.services);
+    this.router.navigate(['/settings/rate-list/add-rate-list'])
+  }
+  addPriceList() { }
 }

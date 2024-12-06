@@ -36,6 +36,12 @@ import { AddServiceComponent } from './ui/pages/settings/add-service/add-service
 import { AllExpenseComponent } from './ui/pages/expense/all-expense/all-expense.component';
 import { NewExpenseComponent } from './ui/pages/expense/new-expense/new-expense.component';
 import { AllPaymentComponent } from './ui/pages/payment/all-payment/all-payment.component';
+import { AddRateListComponent } from './ui/pages/settings/add-rate-list/add-rate-list.component';
+import { OrdersComponent } from './ui/pages/settings/orders/orders.component';
+import { InvoiceComponent } from './ui/pages/settings/invoice/invoice.component';
+import { BillingComponent } from './ui/pages/settings/billing/billing.component';
+import { StoreFrontComponent } from './ui/pages/settings/store-front/store-front.component';
+import { LoyaltyProgramComponent } from './ui/pages/settings/loyalty-program/loyalty-program.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +66,13 @@ import { AllPaymentComponent } from './ui/pages/payment/all-payment/all-payment.
     AddServiceComponent,
     AllExpenseComponent,
     NewExpenseComponent,
-    AllPaymentComponent
+    AllPaymentComponent,
+    AddRateListComponent,
+    OrdersComponent,
+    InvoiceComponent,
+    BillingComponent,
+    StoreFrontComponent,
+    LoyaltyProgramComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,84 @@
-<p>invoice works!</p>
+<div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div class="w-full max-w-lg p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+        <!-- Header -->
+        <div class="mb-6">
+            <h2 class="text-xl font-bold text-gray-800 dark:text-white text-center">Invoice Settings</h2>
+        </div>
+
+        <!-- Invoice Prefix -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                Invoice Prefix
+            </label>
+            <input type="text" [(ngModel)]="invoicePrefix"
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+                placeholder="Prefix (e.g., INV-)" />
+            <p class="mt-2 text-xs text-justify text-gray-500 dark:text-gray-400">
+                Automatically set the invoice prefix and starting number of the invoice.
+                If the invoice prefix is FABKLEAN- and the start number is 1000, the first
+                invoice ID generated will be FABKLEAN-1001. If there are already 34 invoices
+                created, the next order will generate FABKLEAN-1035.
+            </p>
+        </div>
+
+        <!-- Invoice Number -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                Number
+            </label>
+            <input type="number" [(ngModel)]="invoiceNumber"
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+                placeholder="Starting Invoice Number" />
+        </div>
+
+        <!-- Current Invoice ID -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                Current Invoice ID
+            </label>
+            <input type="number" [(ngModel)]="currentInvoiceId"
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+                placeholder="Current ID (e.g., 4284)" />
+        </div>
+
+        <!-- Generate Invoice On -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+                Generate Invoice# Of Order When It's
+            </label>
+            <select [(ngModel)]="generateInvoiceStatus"
+                class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none">
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+            </select>
+            <p class="mt-2 text-xs text-justify text-gray-500 dark:text-gray-400">
+                Invoice# generation can be done at different stages of the order workflow. It all depends on your
+                business model. If you don't want to pay taxes to the government for unpaid orders, set this to "Paid."
+            </p>
+        </div>
+
+        <div class="mb-6 flex items-start">
+            <input id="zeroTaxInvoice" type="checkbox" [(ngModel)]="noInvoiceZeroTax"
+                class="w-4 h-4 text-indigo-600 bg-gray-50 border-gray-300 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 mt-1" />
+            <div class="ml-3">
+                <label for="zeroTaxInvoice" class="text-sm text-justify text-gray-600 dark:text-gray-400">
+                    Don't generate invoices for orders where the total tax amount is zero.
+                </label>
+                <p class="mt-1 text-xs text-justify text-gray-500 dark:text-gray-400">
+                    This can be done either by not applying tax at the order level from POS,
+                    or if all items in the order are of type zero tax.
+                </p>
+            </div>
+        </div>
+
+
+        <!-- No Invoice For Zero Total Orders -->
+        <div class="mb-6 flex items-center">
+            <input id="zeroTotalInvoice" type="checkbox" [(ngModel)]="noInvoiceZeroTotal"
+                class="w-4 h-4 text-indigo-600 bg-gray-50 border-gray-300 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600" />
+            <label for="zeroTotalInvoice" class="ml-3 text-sm text-gray-600 dark:text-gray-400">
+                Don't generate invoices for orders where the invoice total is zero.
+            </label>
+        </div>
+    </div>
+</div>

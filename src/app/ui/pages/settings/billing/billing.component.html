@@ -1,1 +1,113 @@
-<p>billing works!</p>
+<div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div class="w-full max-w-lg p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+      <!-- Billing Details Section -->
+      <div class="mb-4">
+        <h2 class="text-center font-semibold text-gray-800 dark:text-gray-200">Billing Details</h2>
+      </div>
+  
+      <!-- Enterprise/Company Name -->
+      <div class="mb-4 flex flex-col">
+        <label for="companyName" class="text-sm text-gray-600 dark:text-gray-400">Enterprise/Company Name</label>
+        <input
+          id="companyName"
+          type="text"
+          [(ngModel)]="billingDetails.companyName"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- Address -->
+      <div class="mb-4 flex flex-col">
+        <label for="address" class="text-sm text-gray-600 dark:text-gray-400">Address</label>
+        <textarea
+          id="address"
+          [(ngModel)]="billingDetails.address"
+          rows="2"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        ></textarea>
+      </div>
+  
+      <!-- Phone Number -->
+      <div class="mb-4 flex flex-col">
+        <label for="phone" class="text-sm text-gray-600 dark:text-gray-400">Phone Number</label>
+        <input
+          id="phone"
+          type="tel"
+          [(ngModel)]="billingDetails.phone"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- Email -->
+      <div class="mb-4 flex flex-col">
+        <label for="email" class="text-sm text-gray-600 dark:text-gray-400">Email</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="billingDetails.email"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- GSTIN Number -->
+      <div class="mb-4 flex flex-col">
+        <label for="gstin" class="text-sm text-gray-600 dark:text-gray-400">GSTIN Number</label>
+        <input
+          id="gstin"
+          type="text"
+          [(ngModel)]="billingDetails.gstin"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- Bank Account Details Section -->
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Bank Account Details</h3>
+      </div>
+  
+      <!-- Account Holder Name -->
+      <div class="mb-4 flex flex-col">
+        <label for="accountHolderName" class="text-sm text-gray-600 dark:text-gray-400">Account Holder Name</label>
+        <input
+          id="accountHolderName"
+          type="text"
+          [(ngModel)]="bankDetails.accountHolderName"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- Account Number -->
+      <div class="mb-4 flex flex-col">
+        <label for="accountNumber" class="text-sm text-gray-600 dark:text-gray-400">Account Number</label>
+        <input
+          id="accountNumber"
+          type="text"
+          [(ngModel)]="bankDetails.accountNumber"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- IFSC Code -->
+      <div class="mb-4 flex flex-col">
+        <label for="ifsc" class="text-sm text-gray-600 dark:text-gray-400">IFSC Code</label>
+        <input
+          id="ifsc"
+          type="text"
+          [(ngModel)]="bankDetails.ifsc"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+  
+      <!-- UPI -->
+      <div class="mb-4 flex flex-col">
+        <label for="upi" class="text-sm text-gray-600 dark:text-gray-400">UPI</label>
+        <input
+          id="upi"
+          type="text"
+          [(ngModel)]="bankDetails.upi"
+          class="w-full py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+        />
+      </div>
+    </div>
+  </div>
+  

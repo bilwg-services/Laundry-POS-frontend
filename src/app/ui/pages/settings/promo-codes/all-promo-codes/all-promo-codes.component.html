@@ -1,0 +1,144 @@
+<div class="p-6">
+    <header class="flex justify-between items-center mb-4">
+        <div class="flex items-center space-x-4">
+            <button (click)="viewMode = 'table'"
+                [ngClass]="{'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'table', 'text-gray-500': viewMode !== 'table'}"
+                class="px-4 py-2">Table View</button>
+            <button (click)="viewMode = 'card'"
+                [ngClass]="{'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'card', 'text-gray-500': viewMode !== 'card'}"
+                class="px-4 py-2">Card View</button>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button mat-icon-button (click)="toggleFilter()">
+                <span class="material-icons">filter_list</span>
+            </button>
+            <button mat-icon-button (click)="toggleSort()">
+                <span class="material-icons">swap_vert</span>
+            </button>
+            <button mat-icon-button *ngIf="!searchActive" (click)="toggleSearch()">
+                <span class="material-icons">search</span>
+            </button>
+            <div class="relative flex justify-center" *ngIf="searchActive">
+                <input type="text" placeholder="Search..."
+                    class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-lg border border-gray-100 dark:border-indigo-600 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    (input)="onSearchInput($event)" />
+                <span class="absolute left-3 top-2.5 text-gray-500" (click)="toggleSearch()">🔍</span>
+            </div>
+            <button mat-raised-button color="primary" (click)="addPromoCode()"
+                class="dark:bg-blue-700 dark:text-gray-100">Add Promo Code</button>
+        </div>
+    </header>
+
+    <div *ngIf="filterActive || sortActive"
+        class="bg-gray-100 dark:bg-gray-900 py-2 px-4 mb-4 flex flex-col border border-gray-100 dark:border-indigo-600 rounded-lg">
+        <div class="flex space-x-4 items-center my-2" *ngIf="filterActive">
+            <div class="text-md">Filter</div>
+            <div class="relative">
+                <select [(ngModel)]="selectedPromoType" (change)="fetchPromoCodes()"
+                    class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="all">Promo Type</option>
+                    <option value="percentage">Percentage</option>
+                    <option value="flat">Flat</option>
+                </select>
+                <div
+                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M7 10l5 5 5-5H7z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex space-x-4 items-center my-2" *ngIf="sortActive">
+            <div class="text-md">Sort</div>
+            <div class="relative">
+                <select [(ngModel)]="selectedSortType" (change)="fetchPromoCodes()"
+                    class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="promo_name">Promo Name</option>
+                    <option value="type">Type</option>
+                    <option value="min_order_amount">Min Order Amount</option>
+                    <option value="max_discount_amount">Max Discount Amount</option>
+                    <option value="expire_date">Expire Date</option>
+                    <option value="is_public">Is Public</option>
+                </select>
+                <div
+                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M7 10l5 5 5-5H7z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="viewMode === 'table'">
+        <table mat-table [dataSource]="promoCodes" class="mat-elevation-z1 dark:bg-gray-900">
+            <ng-container matColumnDef="promoName">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Promo Name</th>
+                <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.promo_name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Type</th>
+                <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.type }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="minOrderAmount">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Min Order Amount</th>
+                <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.min_order_amount }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="maxDiscountAmount">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Max Discount Amount</th>
+                <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.max_discount_amount }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="expireDate">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Expire Date</th>
+                <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.expire_date | date }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="isPublic">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Is Public</th>
+                <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.is_public ? 'Yes' : 'No' }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gay-200">Actions</th>
+                <td mat-cell *matCellDef="let promo">
+                    <button (click)="viewPromo(promo.id)"
+                        class="mr-1 px-3 py-1 border border-gray-300 rounded text-white hover:bg-blue-700 bg-blue-600">View</button>
+                    <button (click)="removePromo(promo.id)"
+                        class="px-3 py-1 border border-gray-300 rounded text-white hover:bg-red-700 bg-red-600">Delete</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        </table>
+    </div>
+
+    <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+        <mat-card *ngFor="let promo of promoCodes"
+            class="bg-white dark:bg-gray-900 border border-gray-300 p-4 rounded shadow">
+            <mat-card-title>{{ promo.promo_name }}</mat-card-title>
+            <mat-card-content>
+                <p>Type: {{ promo.type }}</p>
+                <p>Min Order Amount: {{ promo.min_order_amount }}</p>
+                <p>Max Discount Amount: {{ promo.max_discount_amount }}</p>
+                <p>Expire Date: {{ promo.expire_date | date }}</p>
+                <p>Is Public: {{ promo.is_public ? 'Yes' : 'No' }}</p>
+            </mat-card-content>
+            <div class="flex justify-end mt-2">
+                <button (click)="viewPromo(promo.id)"
+                    class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">View</button>
+                <button (click)="editPromo(promo.id)"
+                    class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Edit</button>
+                <button (click)="removePromo(promo.id)"
+                    class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Remove</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

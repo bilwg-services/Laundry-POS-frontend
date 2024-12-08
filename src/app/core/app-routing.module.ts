@@ -29,6 +29,11 @@ import { InvoiceComponent } from '../ui/pages/settings/invoice/invoice.component
 import { BillingComponent } from '../ui/pages/settings/billing/billing.component';
 import { StoreFrontComponent } from '../ui/pages/settings/store-front/store-front.component';
 import { LoyaltyProgramComponent } from '../ui/pages/settings/loyalty-program/loyalty-program.component';
+import { AllPromoCodesComponent } from '../ui/pages/settings/promo-codes/all-promo-codes/all-promo-codes.component';
+import { AddOnsIntegrationsComponent } from '../ui/pages/settings/add-ons-integrations/add-ons-integrations.component';
+import { RolesPermissionsComponent } from '../ui/pages/settings/roles-permissions/roles-permissions.component';
+import { ConfigPageComponent } from '../ui/pages/settings/config-page/config-page.component';
+import { ViewRoleComponent } from '../ui/pages/settings/view-role/view-role.component';
 
 const routes: Routes = [
   {
@@ -164,6 +169,11 @@ const routes: Routes = [
             canActivate: [AuthGuard]
           },
           {
+            path: 'promo-codes',
+            component: AllPromoCodesComponent,
+            canActivate: [AuthGuard]
+          },
+          {
             path: 'store-front',
             component: StoreFrontComponent,
             canActivate: [AuthGuard]
@@ -172,8 +182,22 @@ const routes: Routes = [
             path: 'loyalty-program',
             component: LoyaltyProgramComponent,
             canActivate: [AuthGuard]
+          },
+          {
+            path: 'add-ons',
+            component: AddOnsIntegrationsComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'role-permissions',
+            component: RolesPermissionsComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'configurations',
+            component: ConfigPageComponent,
+            canActivate: [AuthGuard],
           }
-
           
         ]
       },

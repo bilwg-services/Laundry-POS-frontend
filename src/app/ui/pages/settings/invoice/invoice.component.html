@@ -13,7 +13,7 @@
             <input type="text" [(ngModel)]="invoicePrefix"
                 class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
                 placeholder="Prefix (e.g., INV-)" />
-            <p class="mt-2 text-xs text-justify text-gray-500 dark:text-gray-400">
+            <p class="pt-1 text-xs text-justify text-gray-500 dark:text-gray-400">
                 Automatically set the invoice prefix and starting number of the invoice.
                 If the invoice prefix is FABKLEAN- and the start number is 1000, the first
                 invoice ID generated will be FABKLEAN-1001. If there are already 34 invoices
@@ -51,7 +51,7 @@
                 <option value="Paid">Paid</option>
                 <option value="Unpaid">Unpaid</option>
             </select>
-            <p class="mt-2 text-xs text-justify text-gray-500 dark:text-gray-400">
+            <p class="pt-1 text-xs text-justify text-gray-500 dark:text-gray-400">
                 Invoice# generation can be done at different stages of the order workflow. It all depends on your
                 business model. If you don't want to pay taxes to the government for unpaid orders, set this to "Paid."
             </p>
@@ -80,5 +80,13 @@
                 Don't generate invoices for orders where the invoice total is zero.
             </label>
         </div>
+        
+        <!-- save button -->
+        <button
+          type="button"
+          class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+        >
+          Save
+        </button>
     </div>
 </div>

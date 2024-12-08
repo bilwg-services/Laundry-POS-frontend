@@ -72,7 +72,7 @@
     </div>
 
     <div *ngIf="viewMode === 'table'">
-        <table mat-table [dataSource]="promoCodes" class="mat-elevation-z1 dark:bg-gray-900">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z1 dark:bg-gray-900">
             <ng-container matColumnDef="promoName">
                 <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Promo Name</th>
                 <td mat-cell *matCellDef="let promo" class="dark:text-gray-200">{{ promo.promo_name }}</td>
@@ -105,12 +105,13 @@
             </ng-container>
 
             <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="dark:text-gay-200">Actions</th>
+                <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Actions</th>
                 <td mat-cell *matCellDef="let promo">
+                    <!-- View Button -->
                     <button (click)="viewPromo(promo.id)"
-                        class="mr-1 px-3 py-1 border border-gray-300 rounded text-white hover:bg-blue-700 bg-blue-600">View</button>
-                    <button (click)="removePromo(promo.id)"
-                        class="px-3 py-1 border border-gray-300 rounded text-white hover:bg-red-700 bg-red-600">Delete</button>
+                        class="px-2 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        View
+                    </button>
                 </td>
             </ng-container>
 
@@ -128,7 +129,7 @@
                 <p>Type: {{ promo.type }}</p>
                 <p>Min Order Amount: {{ promo.min_order_amount }}</p>
                 <p>Max Discount Amount: {{ promo.max_discount_amount }}</p>
-                <p>Expire Date: {{ promo.expire_date | date }}</p>
+                <p>Expire Date: {{ promo.expire_date | date:'short' }}</p>
                 <p>Is Public: {{ promo.is_public ? 'Yes' : 'No' }}</p>
             </mat-card-content>
             <div class="flex justify-end mt-2">
@@ -140,5 +141,10 @@
                     class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Remove</button>
             </div>
         </mat-card>
+    </div>
+    <div class="mt-6">
+        <app-custom-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 30, 50, 100]"
+            [length]="promoCodes.length" (page)="onPageChange($event)"></app-custom-paginator>
+
     </div>
 </div>

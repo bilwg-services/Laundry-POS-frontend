@@ -1,43 +1,54 @@
-<div class="p-4">
-    <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-        <div class="flex space-x-2">
-            <div class="relative flex justify-center">
-                <input type="text" placeholder="Search..."
-                    class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-lg border boorder-gray-100  dark:border-indigo-600 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600" (input)="onSearchInput($event)" />
-                <span class="absolute left-3 top-2.5 text-gray-500">🔍</span>
-            </div>
-        </div>
-        <div class="flex gap-2">
-            <button (click)="addRateList()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add Rate List</button>
-            <button (click)="addService()"  class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add Service</button>
-
-        </div>
-      </div>
-
-    <div class="flex flex-col md:flex-row justify-between items-center mb-4">
-      <div class="flex space-x-2">
-        <select class="p-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" [(ngModel)]="selectedCategory" (change)="filterServices()">
-          <option value="">All Categories</option>
-          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-        </select>
-        <select class="p-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" [(ngModel)]="selectedSubCategory" (change)="filterServices()">
-          <option value="">All Subcategories</option>
-          <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{ subCategory }}</option>
-        </select>
-        <select class="p-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" [(ngModel)]="selectedGroup" (change)="filterServices()">
-          <option value="">All Groups</option>
-          <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
-        </select>
-      </div>
-      <div>
-         <select class="p-2 bg-transparent border border-indigo-600 text-indigo-600 py-2 px-4 rounded " (change)="filterServices()" [(ngModel)]="selectedPriceListId">
-                <option *ngFor="let priceList of priceLists" [value]="priceList">{{ priceList }}</option>
-            </select>
+<div *ngIf="!editMode" class="p-4">
+  <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+    <div class="flex space-x-2">
+      <div class="relative flex justify-center">
+        <input type="text" placeholder="Search..."
+          class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-lg border boorder-gray-100  dark:border-indigo-600 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          (input)="onSearchInput($event)" />
+        <span class="absolute left-3 top-2.5 text-gray-500">🔍</span>
       </div>
     </div>
-  
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white dark:bg-gray-800">
+    <div class="flex gap-2">
+      <button (click)="addRateList()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add Rate
+        List</button>
+      <button (click)="addService()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add
+        Service</button>
+
+    </div>
+  </div>
+
+  <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+    <div class="flex space-x-2">
+      <select
+        class="p-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        [(ngModel)]="selectedCategory" (change)="filterServices()">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+      </select>
+      <select
+        class="p-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        [(ngModel)]="selectedSubCategory" (change)="filterServices()">
+        <option value="">All Subcategories</option>
+        <option *ngFor="let subCategory of subCategories" [value]="subCategory">{{ subCategory }}</option>
+      </select>
+      <select
+        class="p-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        [(ngModel)]="selectedGroup" (change)="filterServices()">
+        <option value="">All Groups</option>
+        <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+      </select>
+    </div>
+    <div>
+
+      <select class="p-2 bg-transparent border border-indigo-600 text-indigo-600 py-2 px-4 rounded "
+        (change)="filterServices()" [(ngModel)]="selectedPriceListId">
+        <option *ngFor="let priceList of priceLists" [value]="priceList">{{ priceList }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white dark:bg-gray-800">
       <thead>
         <tr>
           <th class="py-2 px-4 border-b">Name</th>
@@ -51,14 +62,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let service of filteredServices">
+        <tr *ngFor="let service of dataSource">
           <td class="py-2 px-4 border-b">
-            <input type="text" [(ngModel)]="service.name" class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+            <input type="text" [(ngModel)]="service.name"
+              class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
           </td>
           <td class="py-2 px-4 border-b">
-            <input type="number" [(ngModel)]="service.price" class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+            <input type="number" [(ngModel)]="service.price"
+              class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
           </td>
-          <td class="py-2 px-4 border-b">{{ service.price_type == "item" ? "Per Item" : service.price_type == "weight" ? "Per KG" : "Per Sqft"  }}</td>
+          <td class="py-2 px-4 border-b">{{ service.price_type == "item" ? "Per Item" : service.price_type == "weight" ?
+            "Per KG" : "Per Sqft" }}</td>
           <td class="py-2 px-4 border-b">CGST: {{ service.cgst }}% SGST: {{service.sgst }}% </td>
           <td class="py-2 px-4 border-b">{{ service.category }}</td>
           <td class="py-2 px-4 border-b">{{ service.sub_category }}</td>
@@ -69,5 +83,122 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="mt-3">
+    <app-custom-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 30, 50, 100]"
+      [length]="filteredServices.length" (page)="onPageChange($event)"></app-custom-paginator>
+  </div>
+</div>
+
+
+
+<div *ngIf="editMode">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-800 px-6">
+    <div class="bg-white dark:bg-gray-900 p-8 rounded shadow-md w-full max-w-4xl mt-14 relative">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">Edit Service</h2>
+      <!-- Profile Section -->
+      <div class="flex flex-col items-start space-y-4">
+        <div class="w-full">
+          <div>
+            <!-- Name -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Name</label>
+              <input type="text" [(ngModel)]="editableService.name"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Price -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Price</label>
+              <input type="number" [(ngModel)]="editableService.price"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Price Type -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Price Type</label>
+              <input type="text" [(ngModel)]="editableService.price_type"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- CGST Tax -->
+            <div class="mb-4">
+
+              <label class="block text-gray-700 dark:text-gray-300">CGST</label>
+              <div class="flex gap-2 items-center justify-center">
+                <input type="number" [(ngModel)]="editableService.CGST"
+                  class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+                <span>%</span>
+              </div>
+            </div>
+
+            <!-- SGST Tax -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">SGST</label>
+              <div class="flex gap-2 items-center justify-center">
+                <input type="number" [(ngModel)]="editableService.SGST"
+                  class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+                <span>%</span>
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Category</label>
+              <input type="text" [(ngModel)]="editableService.category"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Sub Category -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Sub Category</label>
+              <input type="text" [(ngModel)]="editableService.sub_category"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Icon -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Icon</label>
+              <input type="text" [(ngModel)]="editableService.sub_category"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- HSN -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">HSN</label>
+              <input type="text" [(ngModel)]="editableService.hsn"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Group -->
+            <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300">Group Name</label>
+              <input type="text" [(ngModel)]="editableService.group_name"
+                class="w-full px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Tax Enabled -->
+            <div class="mb-4 flex gap-2">
+              <label class="block text-gray-700 dark:text-gray-300">Tax Enabled</label>
+              <input type="checkbox" [(ngModel)]="editableService.tax_enabled"
+                class="px-3 py-2 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 outline-none" />
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-between">
+              <button (click)="editMode = false"
+                class="p-2 mt-4 bg-gray-100 hover:bg-gray-200 text-gray-500 border border-gray-300 rounded">
+                Previous
+              </button>
+              <button (click)="updateService()"
+                class="py-2 px-4 mt-4 bg-green-500 hover:bg-green-600 text-white rounded">
+                Save
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
+</div>

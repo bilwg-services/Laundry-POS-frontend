@@ -1,0 +1,92 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div class="w-full max-w-lg p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+      <!-- Header -->
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-white text-center">Configurations</h2>
+      </div>
+  
+      <!-- Time Zone -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Time Zone
+        </label>
+        <select
+          [(ngModel)]="timeZone"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        >
+          <option *ngFor="let zone of timeZones" [value]="zone">{{ zone }}</option>
+        </select>
+        <p class="pt-1 text-xs text-justify text-gray-500 dark:text-gray-400">
+          The time zone determines how times are displayed in your application. Select the one that matches your location.
+        </p>
+      </div>
+  
+      <!-- Date Format -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Date Format
+        </label>
+        <select
+          [(ngModel)]="dateFormat"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        >
+          <option *ngFor="let format of dateFormats" [value]="format">{{ format }}</option>
+        </select>
+      </div>
+  
+      <!-- Time Format -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Time Format
+        </label>
+        <select
+          [(ngModel)]="timeFormat"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        >
+          <option *ngFor="let format of timeFormats" [value]="format">{{ format }}</option>
+        </select>
+        <p class="pt-1 text-xs text-justify text-gray-500 dark:text-gray-400">
+          Select either a 12-hour clock format (e.g., 02:00 PM) or a 24-hour clock format (e.g., 14:00).
+        </p>
+      </div>
+  
+      <!-- Currency -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Currency
+        </label>
+        <select
+          [(ngModel)]="currency"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        >
+          <option *ngFor="let curr of currencies" [value]="curr">{{ curr }}</option>
+        </select>
+      </div>
+  
+      <!-- Language -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Language
+        </label>
+        <select
+          [(ngModel)]="language"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        >
+          <option *ngFor="let lang of languages" [value]="lang">{{ lang }}</option>
+        </select>
+        <p class="pt-1 text-xs text-justify text-gray-500 dark:text-gray-400">
+          Set the language for your application. All interface text will appear in the selected language.
+        </p>
+      </div>
+  
+      <!-- Save Button -->
+      <button
+        (click)="saveSettings()"
+        type="button"
+        class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+  

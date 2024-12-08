@@ -18,8 +18,7 @@ export class AddRateListComponent {
 
   ngOnInit(): void {
     this.services = this.sharedDataService.getServices();
-    console.log("Services in add rate list: ", this.services)
-    
+    console.log("Services inside add rate list components: ", this.services)
     if(this.services.length === 0) {
       this.router.navigate(['/settings/rate-list'])
     }
@@ -32,6 +31,9 @@ export class AddRateListComponent {
   viewMode: 'form' | 'manualPrice' = 'form';
   selectedOption: string = ''
 
+  showNameError: boolean = false;
+  showPercentageError: boolean = false;
+
   productList = [
     { name: 'Apron', defaultPrice: 35, customPrice: 25 },
     { name: 'Bath Mat thick', defaultPrice: 14, customPrice: 14 },
@@ -39,15 +41,80 @@ export class AddRateListComponent {
     // Add more items as needed
   ];
 
-  saveRateList(): void {
-    this.rateListService.createRateList(this.services).subscribe(response => {
+  helperSaveRateList(newRateList: LaundryServiceModel[]) {
+    this.rateListService.createRateList(newRateList).subscribe(response => {
       if(response.status === 200) {
-        console.log("Rate list added successfully.")
+        console.log("Rate list added successfully.");
+        this.router.navigate(['/settings/rate-list'])
       } else {
         console.error('Failed to fetch rateList:', response.message);
       }
+
     })
-    console.log("Save rate list")
+  }
+
+  saveRateList(): void {
+    if(this.viewMode === 'manualPrice') {
+      const newRateList: LaundryServiceModel[] = this.services.map((service) => {
+        service = {
+          ...service,
+          price: service.custom_price ?? service.price,
+          price_list_id: this.name,
+        }
+        delete service.custom_price;
+        return service;
+      });
+      this.helperSaveRateList(newRateList);
+    } 
+    else {
+
+      if(this.percentage <= 0 || this.percentage > 100) {
+        this.showPercentageError = true;
+        return;
+      } 
+      this.showPercentageError = false;
+
+      if(this.selectedOption === this.options[0]) {
+        const newRateList: LaundryServiceModel[] = this.services.map((service) => {
+          let newPrice = Math.floor(service.price + ((service.price) * this.percentage / 100))
+          service = {
+            ...service,
+            price: newPrice,
+            price_list_id: this.name,
+          }
+          delete service.custom_price;
+          console.log("Price is: ", service.price)
+          return service;
+        });
+        this.helperSaveRateList(newRateList);
+
+      } else {
+        const newRateList:LaundryServiceModel[] = this.services.map((service) => {
+
+          let newPrice = Math.floor(service.price - ((service.price) * this.percentage / 100))
+          service = {
+            ...service,
+            price: newPrice,
+            price_list_id: this.name,
+          }
+          delete service.custom_price;
+          return service;
+        });
+        this.helperSaveRateList(newRateList);
+      }  
+    }
+    
+  }
+
+  goNext() {
+    if(this.name.trim() === '') {
+      this.showNameError = true
+      console.log("Name required")
+    } else {
+      this.showNameError = false
+    }
+
+    if(this.showNameError === false) this.selectedOption === this.options[2] ? this.viewMode = 'manualPrice' : this.saveRateList()
   }
 
   deleteData(id: number) {

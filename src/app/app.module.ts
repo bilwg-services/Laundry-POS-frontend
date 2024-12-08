@@ -42,6 +42,12 @@ import { InvoiceComponent } from './ui/pages/settings/invoice/invoice.component'
 import { BillingComponent } from './ui/pages/settings/billing/billing.component';
 import { StoreFrontComponent } from './ui/pages/settings/store-front/store-front.component';
 import { LoyaltyProgramComponent } from './ui/pages/settings/loyalty-program/loyalty-program.component';
+import { AllPromoCodesComponent } from './ui/pages/settings/promo-codes/all-promo-codes/all-promo-codes.component';
+import { RolesPermissionsComponent } from './ui/pages/settings/roles-permissions/roles-permissions.component';
+import { ConfigPageComponent } from './ui/pages/settings/config-page/config-page.component';
+import { ViewRoleComponent } from './ui/pages/settings/view-role/view-role.component';
+import { ComingSoonComponent } from './ui/widget/coming-soon/coming-soon.component';
+import { AddOnsIntegrationsComponent } from './ui/pages/settings/add-ons-integrations/add-ons-integrations.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +79,12 @@ import { LoyaltyProgramComponent } from './ui/pages/settings/loyalty-program/loy
     BillingComponent,
     StoreFrontComponent,
     LoyaltyProgramComponent,
+    AllPromoCodesComponent,
+    RolesPermissionsComponent,
+    ConfigPageComponent,
+    ViewRoleComponent,
+    ComingSoonComponent,
+    AddOnsIntegrationsComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +100,7 @@ import { LoyaltyProgramComponent } from './ui/pages/settings/loyalty-program/loy
     MatButtonModule,
     MatCardModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     provideAnimationsAsync()

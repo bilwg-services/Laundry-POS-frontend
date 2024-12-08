@@ -29,18 +29,13 @@
             <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
               <div class="w-full h-full bg-black bg-opacity-60 rounded-full flex items-center justify-center cursor-pointer shadow-md" (click)="fileInput.click()">
                 <span class="material-icons text-white">edit</span>
+                <input type="file" #fileInput accept="image/*" class="hidden" onchange="onPhotoChange($event)" />
               </div>
             </div>
           </div>
         
           <!-- File input for image change -->
-          <input
-            *ngIf="profileEditable"
-            #fileInput
-            type="file"
-            (change)="onLogoChange($event)"
-            class="hidden"
-          />
+          
         </div>
       </div>
       <div class="w-full">

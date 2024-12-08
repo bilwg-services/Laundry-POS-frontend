@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-business-profile',
@@ -6,8 +6,6 @@ import { Component, ViewChild } from '@angular/core';
   styleUrls: ['./business-profile.component.scss'],
 })
 export class BusinessProfileComponent {
-
-  @ViewChild('fileInput') fileInput?: any;
   
   profileEditable = false;
 
@@ -31,14 +29,13 @@ export class BusinessProfileComponent {
     }
   }
 
-  onLogoChange(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
+  onPhotoChange(event: any) {
+    console.log('On Photo Change called');
+    const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.business.logo = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+      // Handle the image upload logic
+      this.business.logo = URL.createObjectURL(file);
+      console.log("Business logo is: ", this.business.logo)
     }
   }
 

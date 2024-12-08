@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment';
 import { LaundryServiceModel } from '../model/laundry_service';
+import { UpdateServiceModel } from '../model/updateService';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,25 @@ export class RateListService {
     return this.http.get(`${this.baseUrl}/service`, { params, headers});
   }
 
+  createService(rateList: LaundryServiceModel): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const orgId = localStorage.getItem('organizationId');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const customerData = { ...rateList, organization_id: parseInt(orgId ?? "1")};
+
+    return this.http.post(`${this.baseUrl}/service`, customerData, { headers });
+  }
+
+  updateService(service: UpdateServiceModel): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const orgId = localStorage.getItem('organizationId');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const updateServiceData = { ...service, organization_id: parseInt(orgId ?? "1")};
+
+    return this.http.put(`${this.baseUrl}/service/${service.id}`, updateServiceData, {headers});
+
+  }
+
   createRateList(rateList: LaundryServiceModel[]): Observable<any> {
     const token = localStorage.getItem('authToken');
     const orgId = localStorage.getItem('organizationId');
@@ -53,13 +73,6 @@ export class RateListService {
   }
 
 
-  createService(service: LaundryServiceModel): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    const orgId = localStorage.getItem('organizationId');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const customerData = { ...service, organization_id: orgId };
-
-    return this.http.post(`${this.baseUrl}/service`, customerData, { headers });
-  }
+  
 
 }

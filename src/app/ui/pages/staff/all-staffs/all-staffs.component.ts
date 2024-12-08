@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { CustomerService } from '../../../../services/customer.service';
 import { Router } from '@angular/router';
 import { StaffService } from '../../../../services/staff.service';
 import { Staff } from '../../../../model/staff';

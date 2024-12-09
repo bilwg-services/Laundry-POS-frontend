@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environment';
+
 import { Observable } from 'rxjs';
+import { environment } from '../../environment';
+
 import { Expense } from '../model/expense';
 
 @Injectable({
@@ -9,18 +11,19 @@ import { Expense } from '../model/expense';
 })
 export class ExpenseService {
 
-  private readonly baseUrl = `${environment.baseUrl}/expense`;
+
+  private readonly baseUrl = environment.baseUrl;
+
 
   constructor(
     private http: HttpClient,
   ) {}
 
-  getAllExpenses(page: number = 1, limit: number = 10, sort: string = 'created_at', order: string = 'asc', search: string = '', filters: any = {}): Observable<any> {
-    const token = localStorage.getItem('authToken'); // Assuming the token is stored in local storage
-    const orgId = localStorage.getItem('organizationId');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    console.log('getAllExpenses called>>,orgId', orgId);
+  getAllExpense(page: number = 1, limit: number = 10, sort: string = 'created_at', order: string = 'asc', search: string = '', filters: any = {}): Observable<any> {
+    const token = localStorage.getItem('authToken'); // Assuming the token is stored in local storage
+    const orgId = localStorage.getItem('organizationId'); // Assuming the orgId is stored in local storage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     let params = new HttpParams()
       .set('org_id', orgId || '')
@@ -35,19 +38,33 @@ export class ExpenseService {
         params = params.set(`filters[${key}]`, filters[key]);
       }
     }
+
+
+    return this.http.get(`${this.baseUrl}/expense`, { params, headers});
+  }
+
+
+  createExpense(expense: Expense): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const orgId = localStorage.getItem('organizationId');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const expenseData = { ...expense, organization_id: orgId };
+
+    return this.http.post(`${this.baseUrl}/expense`, expenseData, { headers });
+  }
+
+
+  uploadCsv(formData: FormData): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/expense/upload`, formData, { headers });
+  }
+
+
     console.log('base url',this.baseUrl);
 console.log('params',params);
     console.log('headers',headers);
     return this.http.get(`${this.baseUrl}`, { params, headers });
-  }
-
-  createExpense(expense: Expense): Observable<any> {
-    console.log('createExpense called');
-    console.log('expense',expense);
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-    return this.http.post(`${this.baseUrl}`, expense, { headers });
   }
 
 
@@ -68,4 +85,5 @@ console.log('params',params);
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.baseUrl}/${expenseId}`, { headers });
   }
+
 }

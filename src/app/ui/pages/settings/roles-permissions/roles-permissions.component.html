@@ -1,0 +1,314 @@
+<div *ngIf="!viewR">
+<div *ngIf="!showAddRole" class="p-6">
+  <header class="flex justify-between items-center mb-4">
+    <!-- View Mode Toggle -->
+    <div class="flex items-center space-x-4">
+      <button (click)="viewMode = 'table'" [ngClass]="{
+            'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'table',
+            'text-gray-500 dark:text-gray-300': viewMode !== 'table'
+          }" class="px-4 py-2">
+        Table View
+      </button>
+      <button (click)="viewMode = 'card'" [ngClass]="{
+            'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'card',
+            'text-gray-500 dark:text-gray-300': viewMode !== 'card'
+          }" class="px-4 py-2">
+        Card View
+      </button>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="flex items-center space-x-4">
+      <button mat-icon-button (click)="toggleFilter()">
+        <span class="material-icons dark:text-gray-300">filter_list</span>
+      </button>
+      <button mat-icon-button (click)="toggleSort()">
+        <span class="material-icons dark:text-gray-300">swap_vert</span>
+      </button>
+      <button mat-icon-button *ngIf="!searchActive" (click)="toggleSearch()">
+        <span class="material-icons dark:text-gray-300">search</span>
+      </button>
+
+      <!-- Search Input -->
+      <div class="relative flex justify-center" *ngIf="searchActive">
+        <input type="text" placeholder="Search..."
+          class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-lg border border-gray-100 dark:border-indigo-600 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+          (input)="onSearchInput($event)" />
+        <span class="absolute left-3 top-2.5 text-gray-500 dark:text-gray-300" (click)="toggleSearch()">🔍</span>
+      </div>
+
+      <!-- Add role Button -->
+      <button mat-raised-button color="primary" (click)="showAddRole = true" class="dark:bg-blue-700 dark:text-gray-100">
+        Add Role
+      </button>
+    </div>
+  </header>
+
+  <!-- Filter & Sort -->
+  <div *ngIf="filterActive || sortActive"
+    class="bg-gray-100 dark:bg-gray-900 py-2 px-4 mb-4 flex flex-col border border-gray-100 dark:border-indigo-600 rounded-lg">
+    <div class="flex space-x-4 items-center my-2" *ngIf="filterActive">
+      <div class="text-md dark:text-gray-300">Filter</div>
+      <div class="relative">
+        <select [(ngModel)]="selectedFilter" (change)="applyFilter()"
+          class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <option value="all">All Roles</option>
+          <option value="Owner">Owner</option>
+          <option value="role">role</option>
+          <option value="Delivery">Delivery</option>
+          <option value="Account Team">Account Team</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex space-x-4 items-center my-2" *ngIf="sortActive">
+      <div class="text-md dark:text-gray-300">Sort</div>
+      <div class="relative">
+        <select [(ngModel)]="selectedSort" (change)="applySort()"
+          class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <option value="name">Name</option>
+          <option value="permissions">Permissions</option>
+          <option value="status">Status</option>
+        </select>
+      </div>
+      <div class="relative">
+        <select [(ngModel)]="sortOrder" (change)="applySort()"
+          class="block appearance-none w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table View -->
+  <div *ngIf="viewMode === 'table'">
+    <table mat-table [dataSource]="dataSource" class="dark:bg-gray-900 w-full">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">Name</th>
+        <td mat-cell *matCellDef="let role" class="dark:text-gray-300">
+          {{ role.name }}
+        </td>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">Type</th>
+        <td mat-cell *matCellDef="let role" class="dark:text-gray-300">
+          {{ role.type }}
+        </td>
+      </ng-container>
+
+      <!-- Permissions Column -->
+      <ng-container matColumnDef="permissions">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">Permissions</th>
+        <td mat-cell *matCellDef="let role" class="dark:text-gray-300">
+          {{ role.permissions.join(', ') }}
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">Status</th>
+        <td mat-cell *matCellDef="let role" class="dark:text-gray-300">
+          {{ role.status }}
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-300">Actions</th>
+        <td mat-cell *matCellDef="let role"
+          class="dark:text-gray-300 flex items-center justify-center space-x-2 gap-2">
+          <!-- View Button -->
+          <button (click)="viewR = true"
+            class="px-2 py-1 my-4 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" (click)="viewRole(role)">
+            View
+          </button>
+          
+          <!-- Delete Button -->
+          <button (click)="deleteRole(role)"
+            class="px-2 py-1 rounded border border-red-500 text-red-500 hover:bg-red-100 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900">
+            Delete
+          </button>
+        </td>
+
+      </ng-container>
+
+      <!-- Table Header and Rows -->
+      <tr mat-header-row *matHeaderRowDef="['name', 'type', 'permissions', 'status', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['name', 'type', 'permissions', 'status', 'actions']"></tr>
+    </table>
+  </div>
+
+
+  <!-- Card View -->
+  <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <mat-card *ngFor="let role of dataSource"
+      class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 p-4 rounded">
+      <mat-card-title class="dark:text-gray-300">{{ role.name }}</mat-card-title>
+      <mat-card-content>
+        <p class="dark:text-gray-300">Type: {{ role.type }}</p>
+        <p class="dark:text-gray-300">Permissions: {{ role.permissions.join(', ') }}</p>
+        <p class="dark:text-gray-300">Status: {{ role.status }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="showAddRole" class="w-full md:w-1/2 mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mt-10">
+  <h2 class="dark:text-gray-300 text-center text-xl font-semibold mb-4">Add New role</h2>
+
+  <!-- Name Field -->
+  <div class="mb-4">
+    <label for="name" class="block dark:text-gray-300 text-gray-700 mb-2">Name</label>
+    <input type="text" id="name"
+      class="w-full p-2 rounded border border-gray-600 dark:bg-gray-700 bg-gray-100 outline-none  dark:text-gray-300"
+      placeholder="Enter name" />
+  </div>
+
+  <!-- Permissions -->
+  <div class="mb-4">
+    <h3 class="dark:text-gray-300 text-gray-700 text-lg">Permissions</h3>
+
+    <!-- Order Management -->
+    <div class="mb-2">
+      <label class="inline-flex items-center dark:text-gray-300 text-gray-700 mb-1">
+        <input type="checkbox" class="form-checkbox text-indigo-500 mr-1" /> Order Management
+      </label>
+      <div class="flex flex-col ml-4 dark:text-gray-200 text-gray-600">
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox mr-1" /> New Order
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox mr-1" /> Update Order
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox mr-1" /> Delete Order
+        </label>
+      </div>
+    </div>
+
+    <!-- Payment Management -->
+    <div class="mb-2">
+      <label class="inline-flex items-center dark:text-gray-300 text-gray-700 mb-1">
+        <input type="checkbox" class="form-checkbox text-indigo-500 mr-1" /> Payment Management
+      </label>
+      <div class="flex flex-col ml-4 dark:text-gray-200 text-gray-600">
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox mr-1" /> Record Payment
+        </label>
+        <label class="inline-flex items-center">
+          <input type="checkbox" class="form-checkbox mr-1" /> Delete Payment
+        </label>
+      </div>
+    </div>
+
+    <!-- Analytics -->
+    <div>
+      <label class="inline-flex items-center dark:text-gray-300 text-gray-700 mb-1">
+        <input type="checkbox" class="form-checkbox text-indigo-500 mr-1" /> Analytics
+      </label>
+    </div>
+
+    <!-- Settings -->
+    <div>
+      <label class="inline-flex items-center dark:text-gray-300 text-gray-700 mb-1">
+        <input type="checkbox" class="form-checkbox text-indigo-500 mr-1" /> Settings
+      </label>
+    </div>
+  </div>
+
+  <!-- Create Customer Button -->
+  <div>
+    <button class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg shadow-lg transition">
+      Create Customer
+    </button>
+  </div>
+</div>
+<div *ngIf="!showAddRole" class="px-6">
+  <app-custom-paginator [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 30, 50, 100]"
+          [length]="originalDataSource.length" (page)="onPageChange($event)"></app-custom-paginator>
+</div>
+</div>
+
+<div *ngIf="viewR">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-800 px-6">
+    <div class="bg-white dark:bg-gray-900 p-8 rounded shadow-md w-full max-w-4xl mt-14 relative">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">Update Role</h2>
+        <button class="absolute top-10 right-5 text-blue-500 dark:text-blue-300 hover:text-blue-700 dark:hover:text-blue-500" (click)="toggleEdit()">
+          <span class="material-icons">edit</span>
+      </button>
+        <!-- Profile Section -->
+        <div class="flex flex-col items-start space-y-4">
+            <div class="w-full">
+              <div>
+                <!-- Name -->
+                <div class="mb-4">
+                  <label class="block text-gray-700 dark:text-gray-300">Name</label>
+                  <input type="text" [(ngModel)]="currentViewRole.name" 
+                         class="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" 
+                         [readonly]="!editMode" 
+                         [class.bg-white]="editMode" 
+                         [class.cursor-pointer]="editMode"
+                         [class.border-blue-500]="editMode"
+                         [class.border-gray-300]="!editMode" />
+                </div>
+              
+                <!-- Type -->
+                <div class="mb-4">
+                  <label class="block text-gray-700 dark:text-gray-300">Type</label>
+                  <input type="text" [(ngModel)]="currentViewRole.type" 
+                         class="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" 
+                         [readonly]="!editMode" 
+                         [class.bg-white]="editMode" 
+                         [class.cursor-pointer]="editMode"
+                         [class.border-blue-500]="editMode"
+                         [class.border-gray-300]="!editMode" />
+                </div>
+              
+                <!-- Permissions -->
+                <div class="mb-4">
+                  <label class="block text-gray-700 dark:text-gray-300">Permissions</label>
+                  <input type="email" [(ngModel)]="currentViewRole.permissions" 
+                         class="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" 
+                         [readonly]="!editMode" 
+                         [class.bg-white]="editMode" 
+                         [class.cursor-pointer]="editMode"
+                         [class.border-blue-500]="editMode"
+                         [class.border-gray-300]="!editMode" />
+                </div>
+              
+                <!-- Status -->
+                <div class="mb-4">
+                  <label class="block text-gray-700 dark:text-gray-300">Status</label>
+                  <input type="text" [(ngModel)]="currentViewRole.status" 
+                         class="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100" 
+                         [readonly]="!editMode" 
+                         [class.bg-white]="editMode" 
+                         [class.cursor-pointer]="editMode"
+                         [class.border-blue-500]="editMode"
+                         [class.border-gray-300]="!editMode" />
+                </div>
+              
+                <!-- Buttons -->
+                <div class="flex justify-between">
+                  <button (click)="viewR = false" class="p-2 mt-4 bg-gray-100 hover:bg-gray-200 text-gray-500 border border-gray-300 rounded">
+                    Previous
+                  </button>
+                  <div *ngIf="editMode">
+                    <button class="py-2 px-4 mt-4 bg-green-500 hover:bg-green-600 text-white rounded">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>

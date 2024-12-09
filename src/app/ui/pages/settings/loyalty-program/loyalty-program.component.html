@@ -1,0 +1,68 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+    <div class="w-full max-w-md p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+      <!-- Header -->
+      <div class="flex flex-col gap-4 items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Loyalty Program Settings</h2>
+      </div>
+  
+      <!-- Activate Loyalty Program -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Activate Loyalty Program</h3>
+        <div class="flex items-center justify-between">
+          <label class="text-gray-600 dark:text-gray-400">Activate</label>
+          <input
+            type="checkbox"
+            [(ngModel)]="loyaltyProgram.active"
+            class="toggle-input"
+          />
+        </div>
+      </div>
+  
+      <!-- Currency to Point Conversion -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Currency to Point Conversion (%)</h3>
+        <input
+          type="number"
+          [(ngModel)]="loyaltyProgram.currencyToPoint"
+          min="0"
+          max="100"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        />
+      </div>
+  
+      <!-- Points to Currency Conversion -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Points to Currency Conversion (%)</h3>
+        <input
+          type="number"
+          [(ngModel)]="loyaltyProgram.pointToCurrency"
+          min="0"
+          max="100"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        />
+      </div>
+  
+      <!-- Minimum Points to Redeem -->
+      <div class="mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Minimum Points to Redeem</h3>
+        <input
+          type="number"
+          [(ngModel)]="loyaltyProgram.minPointsToRedeem"
+          min="1"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        />
+      </div>
+  
+      <!-- Save Button -->
+      <div class="text-center">
+        <button
+          (click)="saveLoyaltySettings()"
+          type="button"
+          class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+        >
+          Save Settings
+        </button>
+      </div>
+    </div>
+  </div>
+  

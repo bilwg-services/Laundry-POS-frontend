@@ -1,0 +1,143 @@
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800 p-6">
+    <div class="bg-white dark:bg-gray-900 p-8 rounded shadow-md w-full max-w-4xl">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">Update Staff Profile</h2>
+
+        <!-- Profile Section -->
+        <div class="flex flex-col md:flex-row items-center mb-6">
+            <div class="w-full">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Profile</h3>
+                    <button class="text-blue-500 dark:text-blue-300 hover:text-blue-700 dark:hover:text-blue-500"
+                        (click)="editMode = !editMode">
+                        <span class="material-icons">edit</span>
+                    </button>
+                </div>
+                <form [formGroup]="staffForm" (ngSubmit)="updateStaff()">
+                    <div *ngIf="!editMode">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">First Name</label>
+                            <p
+                                class="w-full px-3 py-2 border dark:border-none rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                {{ staffForm.get('first_name')?.value }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Last Name</label>
+                            <p
+                                class="w-full px-3 py-2 border dark:border-none rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                {{ staffForm.get('last_name')?.value }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Email</label>
+                            <p
+                                class="w-full px-3 py-2 border dark:border-none rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                {{ staffForm.get('email')?.value }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Phone Number</label>
+                            <p
+                                class="w-full px-3 py-2 border dark:border-none rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                {{ staffForm.get('phone_number')?.value }}</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Role</label>
+                            <p
+                                class="w-full px-3 py-2 border dark:border-none rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                                {{ staffForm.get('role')?.value }}</p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="editMode">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">First Name</label>
+                            <input type="text" formControlName="first_name"
+                                class="w-full px-3 py-2 border dark:border-gray-700  rounded bg-transparent text-gray-900 dark:text-gray-100" />
+                            <div *ngIf="staffForm.get('first_name')?.invalid && staffForm.get('first_name')?.touched"
+                                class="text-red-500">
+                                First name is required.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Last Name</label>
+                            <input type="text" formControlName="last_name"
+                                class="w-full px-3 py-2 border dark:border-gray-700  rounded bg-transparent text-gray-900 dark:text-gray-100" />
+                            <div *ngIf="staffForm.get('last_name')?.invalid && staffForm.get('last_name')?.touched"
+                                class="text-red-500">
+                                Last name is required.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Email</label>
+                            <input type="email" formControlName="email"
+                                class="w-full px-3 py-2 border dark:border-gray-700  rounded bg-transparent text-gray-900 dark:text-gray-100" />
+                            <div *ngIf="staffForm.get('email')?.invalid && staffForm.get('email')?.touched"
+                                class="text-red-500">
+                                Enter a valid email.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Phone Number</label>
+                            <input type="text" formControlName="phone_number"
+                                class="w-full px-3 py-2 border dark:border-gray-700  rounded bg-transparent text-gray-900 dark:text-gray-100" />
+                            <div *ngIf="staffForm.get('phone_number')?.invalid && staffForm.get('phone_number')?.touched"
+                                class="text-red-500">
+                                Phone number is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Role</label>
+                            <select formControlName="role"
+                                class="block w-full bg-white dark:bg-gray-900 border dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded leading-tight">
+                                <option value="" disabled selected>Select a role</option>
+                                <option value="admin">Admin</option>
+                                <option value="staff">Staff</option>
+                                <option value="manager">Manager</option>
+                                <option value="delivery">Delivery</option>
+                            </select>
+                            <div *ngIf="staffForm.get('role')?.invalid && staffForm.get('role')?.touched"
+                                class="text-red-500">
+                                Role is required.
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Role-Status</label>
+                            <select formControlName="roleStatus"
+                                class="block w-full bg-white dark:bg-gray-900 border dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded leading-tight">
+                                <option value="" disabled selected>Select a role status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <div *ngIf="staffForm.get('roleStatus')?.invalid && staffForm.get('roleStatus')?.touched"
+                                class="text-red-500">
+                                Role Status is required.
+                            </div>
+                        </div>
+
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300">Status</label>
+                            <select formControlName="status"
+                                class="block w-full bg-white dark:bg-gray-900 border dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 px-4 rounded leading-tight">
+                                <option value="" disabled selected>Select a status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            <div *ngIf="staffForm.get('status')?.invalid && staffForm.get('status')?.touched"
+                                class="text-red-500">
+                                Status is required.
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600"
+                            [disabled]="staffForm.invalid">
+                            Update Staff
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,9 +23,34 @@ import { SelectOrganizationComponent } from './ui/pages/auth/select-organization
 import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/update-customer.component';
 import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-paginator.component';
-import { AllExpensesComponent } from './ui/pages/expenses/all-expenses/all-expenses.component';
-import { NewExpenseComponent } from './ui/pages/expenses/new-expense/new-expense.component';
+
+import { AllStaffsComponent } from './ui/pages/staff/all-staffs/all-staffs.component';
+import { NewStaffComponent } from './ui/pages/staff/new-staff/new-staff.component';
+import { UpdateStaffComponent } from './ui/pages/staff/update-staff/update-staff.component';
+import { NewOrderComponent } from './ui/pages/order/new-order/new-order.component';
+import { NewOrderSingleComponent } from './ui/pages/order/new-order-single/new-order-single.component';
+import { BusinessProfileComponent } from './ui/pages/settings/business-profile/business-profile.component';
+import { RateListComponent } from './ui/pages/settings/rate-list/rate-list.component';
+import { SettingsLandingComponent } from './ui/pages/settings/settings-landing/settings-landing.component';
+import { ProfileComponent } from './ui/pages/settings/profile/profile.component';
+import { AddServiceComponent } from './ui/pages/settings/add-service/add-service.component';
+import { AllExpenseComponent } from './ui/pages/expense/all-expense/all-expense.component';
+import { NewExpenseComponent } from './ui/pages/expense/new-expense/new-expense.component';
+import { AllPaymentComponent } from './ui/pages/payment/all-payment/all-payment.component';
+import { AddRateListComponent } from './ui/pages/settings/add-rate-list/add-rate-list.component';
+import { OrdersComponent } from './ui/pages/settings/orders/orders.component';
+import { InvoiceComponent } from './ui/pages/settings/invoice/invoice.component';
+import { BillingComponent } from './ui/pages/settings/billing/billing.component';
+import { StoreFrontComponent } from './ui/pages/settings/store-front/store-front.component';
+import { LoyaltyProgramComponent } from './ui/pages/settings/loyalty-program/loyalty-program.component';
+import { AllPromoCodesComponent } from './ui/pages/settings/promo-codes/all-promo-codes/all-promo-codes.component';
+import { RolesPermissionsComponent } from './ui/pages/settings/roles-permissions/roles-permissions.component';
+import { ConfigPageComponent } from './ui/pages/settings/config-page/config-page.component';
+import { ViewRoleComponent } from './ui/pages/settings/view-role/view-role.component';
+import { ComingSoonComponent } from './ui/widget/coming-soon/coming-soon.component';
+import { AddOnsIntegrationsComponent } from './ui/pages/settings/add-ons-integrations/add-ons-integrations.component';
 import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/update-expense.component';
+
 
 @NgModule({
   declarations: [
@@ -38,8 +63,31 @@ import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/updat
     NewCustomerComponent,
     UpdateCustomerComponent,
     CustomPaginatorComponent,
-    AllExpensesComponent,
+    AllStaffsComponent,
+    NewStaffComponent,
+    UpdateStaffComponent,
+    NewOrderComponent,
+    NewOrderSingleComponent,
+    SettingsLandingComponent,
+    ProfileComponent,
+    BusinessProfileComponent,
+    RateListComponent,
+    AddServiceComponent,
+    AllExpenseComponent,
     NewExpenseComponent,
+    AllPaymentComponent,
+    AddRateListComponent,
+    OrdersComponent,
+    InvoiceComponent,
+    BillingComponent,
+    StoreFrontComponent,
+    LoyaltyProgramComponent,
+    AllPromoCodesComponent,
+    RolesPermissionsComponent,
+    ConfigPageComponent,
+    ViewRoleComponent,
+    ComingSoonComponent,
+    AddOnsIntegrationsComponent
     UpdateExpenseComponent
   ],
   imports: [
@@ -56,7 +104,7 @@ import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/updat
     MatButtonModule,
     MatCardModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     provideAnimationsAsync()

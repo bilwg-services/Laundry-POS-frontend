@@ -1,0 +1,134 @@
+<div *ngIf="viewMode === 'form'"
+  class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+  <div class="w-full max-w-md p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Add New Rate-List</h2>
+
+    <!-- Form Section -->
+    <div *ngIf="viewMode === 'form'">
+      <form>
+        <!-- Name Field -->
+        <div class="mb-6">
+          <label for="name" class="block text-gray-700 dark:text-gray-200">
+            Name
+          </label>
+          <input id="name" type="text" class="w-full px-3 py-2 border dark:border-gray-700 rounded bg-transparent"
+            placeholder="Enter name" [(ngModel)]="name" name="name" required />
+            <p class="text-red-700" *ngIf="showNameError">Name is required</p>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="mb-6">
+          <label for="dropdown" class="block text-gray-700 dark:text-gray-200">
+            Price Manipulation
+          </label>
+          <select id="dropdown" [(ngModel)]="selectedOption"
+            class="w-full px-3 py-2 border dark:border-gray-700 rounded bg-transparent focus:outline-none focus:bg-white dark:focus:bg-gray-900"
+            name="dropdown" required>
+            <option value="" disabled selected>Select an option</option>
+            <option *ngFor="let option of options">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Percentage Field -->
+        <!-- <h1>{{selectedOption == 'Mark Up Price'}}</h1> -->
+        <div *ngIf="selectedOption === options[0] || selectedOption === options[1]" class="mb-6">
+          <label for="percentage" class="block text-gray-700 dark:text-gray-200">
+            Percentage
+          </label>
+          <div class="flex items-center justify-center gap-3">
+            <input id="percentage" type="number"
+              class="w-full px-3 py-2 border dark:border-gray-700 rounded bg-transparent" placeholder="Enter percentage"
+              [(ngModel)]="percentage" name="percentage" min="0" max="100" required />
+            <span>%</span>
+
+          </div>
+          <p class="text-red-700" *ngIf="showPercentageError">Percentage > 0 && Percentage <= 100</p>
+        </div>
+
+        <!-- Next Button -->
+        <div class="flex justify-between">
+
+          <button [disabled]="selectedOption === '' || name === ''" type="button"
+            class="disabled:bg-green-400 w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600"
+            (click)="goNext()">
+            {{selectedOption !== options[2] ? "Save": "Next"}}
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="viewMode === 'manualPrice'" class="overflow-x-auto w-full h-full">
+  <h1 class="text-center">Create Manual Rate List</h1>
+  <table class="min-w-full bg-white dark:bg-gray-800">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 border-b">Name</th>
+        <th class="py-2 px-4 border-b">Price</th>
+        <th class="py-2 px-4 border-b">Custom Price</th>
+        <th class="py-2 px-4 border-b">Price Type</th>
+        <th class="py-2 px-4 border-b">Tax</th>
+        <th class="py-2 px-4 border-b">Category</th>
+        <th class="py-2 px-4 border-b">Subcategory</th>
+        <th class="py-2 px-4 border-b">Group</th>
+        <th class="py-2 px-4 border-b">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let service of services">
+        <td class="py-2 px-4 border-b">
+          <input type="text" [(ngModel)]="service.name"
+            class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+        </td>
+        
+        <td class="py-2 px-4 border-b"> {{ service.price }}</td>
+        <td class="py-2 px-4 border-b">
+          <input type="number" [(ngModel)]="service.custom_price"
+            class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+        </td>
+        <!-- Price Type Column with Input -->
+        <td class="py-2 border-b">
+          <select [(ngModel)]="service.price_type"
+            class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+            <option value="item" selected>Per Item</option>
+            <option value="weight">Per KG</option>
+            <option value="sqft">Per Sqft</option>
+          </select>
+        </td>
+
+        <!-- CGST and SGST Columns with Inputs -->
+        <td class="py-2 px-4 border-b">CGST: {{ service.cgst }}% SGST: {{service.sgst }}% </td>
+
+        <!-- Category Column with Input -->
+        <td class="py-2 px-4 border-b">
+          <input type="text" [(ngModel)]="service.category"
+            class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900" placeholder="Category">
+        </td>
+
+        <!-- Subcategory Column with Input -->
+        <td class="py-2 px-4 border-b">
+          <input type="text" [(ngModel)]="service.sub_category"
+            class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900" placeholder="Subcategory">
+        </td>
+
+        <!-- Group Name Column with Input -->
+        <td class="py-2 px-4 border-b">
+          <input type="text" [(ngModel)]="service.group_name"
+            class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900" placeholder="Group Name">
+        </td>
+        <td class="py-2 px-4 border-b">
+          <button (click)="deleteData(service.id)" class="p-2 bg-red-500 hover:bg-red-600 text-white rounded">Delete</button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="flex justify-between"> 
+    <button (click)="viewMode = 'form'" class="p-2 mt-4 bg-gray-100 hover:bg-gray-200 text-black border border-gray-300 rounded"> < Previous </button>
+    <button (click)="saveRateList()" class="py-2 px-4 mt-4 bg-green-500 hover:bg-green-600 text-white rounded">Save</button>
+  </div>
+</div>

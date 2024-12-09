@@ -1,0 +1,15 @@
+export interface UpdateServiceModel {
+    id: number,
+    name: string,
+    price: number,
+    price_type: string,
+    icon: string,
+    CGST: number,
+    SGST: number,
+    tax_enabled: boolean,
+    hsn: string,
+    group_name: string,
+    sub_category: string,
+    category: string,
+    price_list_id: string,
+}

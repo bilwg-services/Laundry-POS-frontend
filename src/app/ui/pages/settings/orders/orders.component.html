@@ -1,0 +1,104 @@
+<div class="flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+    <div class="w-full max-w-lg p-6 dark:bg-gray-900 bg-white rounded-lg shadow-md">
+      <!-- Header -->
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-white text-center">Order Settings</h2>
+      </div>
+  
+      <!-- Set Delivery Time -->
+      <div class="mb-6">
+        <label for="deliveryTime" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Set Delivery Time (In Days)
+        </label>
+        <input
+          id="deliveryTime"
+          type="number"
+          [(ngModel)]="deliveryTime"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+          placeholder="Enter days"
+        />
+        <p class="pt-1 text-xs text-gray-500 dark:text-gray-400">
+          Automatically set the delivery date after selected days (e.g., order date + X days).
+        </p>
+      </div>
+  
+      <!-- Enable Delivery Days -->
+      <div class="mb-6 flex items-center">
+        <input
+          id="autoDelivery"
+          type="checkbox"
+          [(ngModel)]="autoDelivery"
+          class="w-4 h-4 text-indigo-600 bg-gray-50 border-gray-300 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600"
+        />
+        <label for="autoDelivery" class="ml-3 text-sm text-gray-600 dark:text-gray-400">
+          By enabling this, you can set the delivery days in catalogs...
+        </label>
+      </div>
+  
+      <!-- Pickup Advance Notice -->
+      <div class="mb-6">
+        <label for="pickupNotice" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Pickup Advance Notice (Days)
+        </label>
+        <input
+          id="pickupNotice"
+          type="number"
+          [(ngModel)]="pickupNotice"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+          placeholder="Enter days"
+        />
+        <p class="pt-1 text-xs text-gray-500 dark:text-gray-400">
+          If set, pickup cannot be raised by customers immediately.
+        </p>
+      </div>
+  
+      <!-- Enable Express Delivery -->
+      <div class="mb-6 flex items-center">
+        <input
+          id="expressDelivery"
+          type="checkbox"
+          [(ngModel)]="enableExpressDelivery"
+          class="w-4 h-4 text-indigo-600 bg-gray-50 border-gray-300 rounded focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600"
+        />
+        <label for="expressDelivery" class="ml-3 text-sm text-gray-600 dark:text-gray-400">
+          Enable Express Delivery In Mobile And Web
+        </label>
+      </div>
+  
+      <!-- Express Delivery Time -->
+      <div class="mb-6">
+        <label for="expressTime" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Set Express Delivery Time (In Days)
+        </label>
+        <input
+          id="expressTime"
+          type="number"
+          [(ngModel)]="expressDeliveryTime"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+          placeholder="Enter days"
+        />
+      </div>
+  
+      <!-- Set Express PriceList -->
+      <div class="mb-6">
+        <label for="expressPriceList" class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          Set Express PriceList
+        </label>
+        <select
+          id="expressPriceList"
+          [(ngModel)]="expressPriceList"
+          class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
+        >
+          <option value="express">Express</option>
+          <option value="standard">Standard</option>
+        </select>
+      </div>
+      <button
+          type="button"
+          class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+        >
+          Save
+        </button>
+    </div>
+  </div>
+  

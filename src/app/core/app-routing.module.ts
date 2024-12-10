@@ -64,7 +64,7 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [AuthGuard] // Protect with AuthGuard
       },
-     
+
       {
         path: 'expense/:id',
         component: UpdateExpenseComponent,
@@ -148,7 +148,7 @@ const routes: Routes = [
             path: 'business-profile',
             component: BusinessProfileComponent,
             canActivate: [AuthGuard], // Protect with AuthGuard
-          },      
+          },
            {
             path: 'rate-list',
             component: RateListComponent,
@@ -209,17 +209,14 @@ const routes: Routes = [
             component: ConfigPageComponent,
             canActivate: [AuthGuard],
           }
-          
+
         ]
       },
-      
-
+      ]
       }
 
 
-    ]
-  }
-];
+    ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

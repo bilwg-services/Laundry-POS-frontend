@@ -61,13 +61,6 @@ export class ExpenseService {
   }
 
 
-    console.log('base url',this.baseUrl);
-console.log('params',params);
-    console.log('headers',headers);
-    return this.http.get(`${this.baseUrl}`, { params, headers });
-  }
-
-
   updateExpense(expenseId: number, expense: Expense): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

@@ -87,7 +87,7 @@ import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/updat
     ConfigPageComponent,
     ViewRoleComponent,
     ComingSoonComponent,
-    AddOnsIntegrationsComponent
+    AddOnsIntegrationsComponent,
     UpdateExpenseComponent
   ],
   imports: [

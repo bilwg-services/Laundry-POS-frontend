@@ -1,4 +1,4 @@
-<div *ngIf="!editMode" class="p-4">
+<div *ngIf="!editMode && !showAddServiceDialog" class="p-4">
   <div class="flex flex-col md:flex-row justify-between items-center mb-4">
     <div class="flex space-x-2">
       <div class="relative flex justify-center">
@@ -11,7 +11,7 @@
     <div class="flex gap-2">
       <button (click)="addRateList()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add Rate
         List</button>
-      <button (click)="addService()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add
+      <button (click)="toggleAddService()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add
         Service</button>
 
     </div>
@@ -63,13 +63,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let service of dataSource">
-          <td class="py-2 px-4 border-b">
-            <input type="text" [(ngModel)]="service.name"
-              class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+          <td class="py-2 px-4 border-b"> {{ service.name }}
           </td>
-          <td class="py-2 px-4 border-b">
-            <input type="number" [(ngModel)]="service.price"
-              class="w-full p-2 border rounded dark:border-gray-700 dark:bg-gray-900">
+          <td class="py-2 px-4 border-b"> {{ service.price }}
           </td>
           <td class="py-2 px-4 border-b">{{ service.price_type == "item" ? "Per Item" : service.price_type == "weight" ?
             "Per KG" : "Per Sqft" }}</td>
@@ -199,6 +195,39 @@
 
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- AddServiceDialog  -->
+<div *ngIf="showAddServiceDialog" class="flex justify-center items-center h-4/5">
+  <div class="w-full max-w-md p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Select Rate List to Add New Service</h2>
+    <!-- Dropdown Menu -->
+    <div class="mb-6">
+      <label for="dropdown" class="block text-gray-700 dark:text-gray-200">
+        Select Rate List
+      </label>
+      <select id="dropdown"
+        [(ngModel)]='rateListForAddService'
+        class="w-full px-3 py-2 border dark:border-gray-700 rounded bg-transparent focus:outline-none focus:bg-white dark:focus:bg-gray-900"
+        name="dropdown" required>
+        <option value="" disabled selected>Select an option</option>
+        <option *ngFor="let list of priceLists">
+          {{ list }}
+        </option>
+      </select>
+    </div>
+
+     <!-- Next Button -->
+     <div class="flex justify-between">
+      <button (click)="showAddServiceDialog = false"
+      class="p-2 bg-gray-100 hover:bg-gray-200 text-gray-500 border border-gray-300 rounded">
+      Previous
+    </button>
+      <button (click)="addService()" [disabled]="rateListForAddService === ''" type="button" class="disabled:bg-green-400 p-2 bg-green-500 text-white rounded hover:bg-green-600">
+        Next
+      </button>
     </div>
   </div>
 </div>

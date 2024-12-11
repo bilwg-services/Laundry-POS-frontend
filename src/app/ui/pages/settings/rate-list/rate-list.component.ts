@@ -24,6 +24,12 @@ export class RateListComponent {
   dataShared: boolean = false;
 
   editMode:boolean = false;
+  
+  showAddServiceDialog:boolean = false;
+  rateListForAddService:string = '';
+  toggleAddService() {
+    this.showAddServiceDialog = true;
+  }
 
   ngOnInit(): void {
     this.fetchServices();
@@ -138,7 +144,7 @@ export class RateListComponent {
 
 
   addService() {
-    this.router.navigate(['/settings/rate-list/add-service']);
+    this.router.navigate(['/settings/rate-list/add-service', this.rateListForAddService]);
   }
 
   updateService() {

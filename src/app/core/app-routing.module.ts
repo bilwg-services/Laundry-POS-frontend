@@ -144,10 +144,11 @@ const routes: Routes = [
             canActivate: [AuthGuard], // Protect with AuthGuard
           },
           {
-            path: 'rate-list/add-service',
+            path: 'rate-list/add-service/:rateList',
             component: AddServiceComponent,
             canActivate: [AuthGuard], // Protect with AuthGuard
           },
+
           {
             path: 'rate-list/add-rate-list',
             component: AddRateListComponent,

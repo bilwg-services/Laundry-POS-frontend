@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { environment } from '../../environment';
+
 import { Expense } from '../model/expense';
 
 @Injectable({
@@ -9,11 +11,14 @@ import { Expense } from '../model/expense';
 })
 export class ExpenseService {
 
+
   private readonly baseUrl = environment.baseUrl;
+
 
   constructor(
     private http: HttpClient,
   ) {}
+
 
   getAllExpense(page: number = 1, limit: number = 10, sort: string = 'created_at', order: string = 'asc', search: string = '', filters: any = {}): Observable<any> {
     const token = localStorage.getItem('authToken'); // Assuming the token is stored in local storage
@@ -34,6 +39,7 @@ export class ExpenseService {
       }
     }
 
+
     return this.http.get(`${this.baseUrl}/expense`, { params, headers});
   }
 
@@ -52,6 +58,25 @@ export class ExpenseService {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.baseUrl}/expense/upload`, formData, { headers });
+  }
+
+
+  updateExpense(expenseId: number, expense: Expense): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/${expenseId}`, expense, { headers });
+  }
+
+  deleteExpense(expenseId: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/${expenseId}`, { headers });
+  }
+
+  getExpenseById(expenseId: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.baseUrl}/${expenseId}`, { headers });
   }
 
 }

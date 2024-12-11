@@ -20,21 +20,36 @@ export class AuthService {
     try {
       const response = await this.http.post(`${this.baseUrl}/auth/login`, { email, password }).toPromise();
       console.log('API response:', response); // Log the full response
-  
+
       if (response && (response as any).status === 200) {
         const token = (response as any).token; // Use the correct path to get the token
         localStorage.setItem('authToken', token);
-  
+
 
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
+
+        const userId = (response as any).id;
+        if (userId) {
+          localStorage.setItem('userId', userId);
+          console.log('User ID saved>>>:', userId);
+        } else {
+          // Fetch user info to get user id
+          const userResponse = await this.getCurrentUser();
+          if (userResponse && userResponse.id) {
+            localStorage.setItem('userId', userResponse.id.toString());
+          } else {
+            console.log('User ID not available in response:', userResponse);
+          }
+        }
+
+
         // Call the user-organization API
         const orgResponse = await this.http.get(`${this.baseUrl}/user-organization/`, {headers}).toPromise();
         console.log('User organization response:', orgResponse);
-  
+
         if (orgResponse && (orgResponse as any).status === 200) {
           const orgData = (orgResponse as any).data;
-  
+
           if (orgData.length === 1) {
             localStorage.setItem('organizationId', orgData[0].organization_id);
           } else if (orgData.length > 1) {
@@ -44,7 +59,7 @@ export class AuthService {
         } else {
           console.log('Failed to fetch user organization data:', orgResponse);
         }
-  
+
         return { status: 200, message: 'Login successful', token }; // Return the token and status
       } else {
         console.log('Login failed:', response);
@@ -87,6 +102,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
     this.router.navigate(['/login']);
     console.log('User logged out');
   }

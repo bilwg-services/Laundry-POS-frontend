@@ -9,6 +9,7 @@ import {LoginGuard} from '../guard/login.guard';
 import { SelectOrganizationComponent } from '../ui/pages/auth/select-organization/select-organization.component';
 import { NewCustomerComponent } from '../ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from '../ui/pages/customers/update-customer/update-customer.component';
+
 import { AllStaffsComponent } from '../ui/pages/staff/all-staffs/all-staffs.component';
 import { NewStaffComponent } from '../ui/pages/staff/new-staff/new-staff.component';
 import { UpdateStaffComponent } from '../ui/pages/staff/update-staff/update-staff.component';
@@ -35,6 +36,9 @@ import { RolesPermissionsComponent } from '../ui/pages/settings/roles-permission
 import { ConfigPageComponent } from '../ui/pages/settings/config-page/config-page.component';
 import { ViewRoleComponent } from '../ui/pages/settings/view-role/view-role.component';
 
+import {UpdateExpenseComponent} from '../ui/pages/expenses/update-expense/update-expense.component';
+
+
 const routes: Routes = [
   {
     path: 'login',
@@ -44,7 +48,7 @@ const routes: Routes = [
   {
     path: 'select-role',
     component: SelectOrganizationComponent,
-    canActivate: [AuthGuard] 
+    canActivate: [AuthGuard]
   },
   {
     path: '',
@@ -60,6 +64,12 @@ const routes: Routes = [
         component: DashboardComponent,
         canActivate: [AuthGuard] // Protect with AuthGuard
       },
+
+      {
+        path: 'expense/:id',
+        component: UpdateExpenseComponent,
+        canActivate: [AuthGuard], // Protect with AuthGuard
+      },
       {
         path: 'customer',
         component: AllCustomersComponent,
@@ -74,6 +84,7 @@ const routes: Routes = [
         path: 'customer/:id',
         component: UpdateCustomerComponent,
         canActivate: [AuthGuard], // Protect with AuthGuard
+
       },
       {
         path: 'payments-management',
@@ -137,7 +148,7 @@ const routes: Routes = [
             path: 'business-profile',
             component: BusinessProfileComponent,
             canActivate: [AuthGuard], // Protect with AuthGuard
-          },      
+          },
            {
             path: 'rate-list',
             component: RateListComponent,
@@ -199,13 +210,14 @@ const routes: Routes = [
             component: ConfigPageComponent,
             canActivate: [AuthGuard],
           }
-          
+
         ]
       },
-      
-    ]
-  }
-];
+      ]
+      }
+
+
+    ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

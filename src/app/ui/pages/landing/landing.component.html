@@ -35,7 +35,7 @@
           </a>
         </li>
         <li>
-          <a routerLink="/expense-tracking" routerLinkActive="active"
+          <a routerLink="/expense" routerLinkActive="active"
             class="flex items-center p-4 hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
             <span class="material-icons mr-2">attach_money</span>
             Expense Tracking
@@ -102,12 +102,12 @@
           </div>
           <div class="ml-3 text-gray-800 dark:text-gray-200">Toggle Dark Mode</div>
         </label>
-  
+
         <img
           src="{{ this.user?.profile_image ? this.user?.profile_image : ('https://avatar.iran.liara.run/public/boy?username=' + this.user?.first_name) }}"
           alt="User Profile" class="h-10 w-10 rounded-full" (click)="toggleDropdown()">
       </div>
-     
+
 
 
       <div *ngIf="dropdownOpen"

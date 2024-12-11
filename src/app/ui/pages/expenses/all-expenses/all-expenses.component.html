@@ -1,0 +1,110 @@
+<div class="p-6">
+  <header class="flex justify-between items-center mb-4">
+    <div class="flex items-center space-x-4">
+      <button (click)="viewMode = 'table'"
+              [ngClass]="{'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'table', 'text-gray-500': viewMode !== 'table'}"
+              class="px-4 py-2">Table View</button>
+      <button (click)="viewMode = 'card'"
+              [ngClass]="{'border-b-2 border-[#6366f1] text-[#6366f1]': viewMode === 'card', 'text-gray-500': viewMode !== 'card'}"
+              class="px-4 py-2">Card View</button>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <button mat-icon-button (click)="toggleFilter()">
+        <span class="material-icons">filter_list</span>
+      </button>
+      <button mat-icon-button (click)="toggleSort()">
+        <span class="material-icons">swap_vert</span>
+      </button>
+      <button mat-icon-button *ngIf="!searchActive" (click)="toggleSearch()">
+        <span class="material-icons">search</span>
+      </button>
+
+      <div class="relative flex justify-center" *ngIf="searchActive">
+        <input type="text" placeholder="Search..."
+               class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-lg border border-gray-100 dark:border-indigo-600 pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+               (input)="onSearchInput($event)" />
+        <span class="absolute left-3 top-2.5 text-gray-500" (click)="toggleSearch()">🔍</span>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="addExpense()"
+              class="dark:bg-blue-700 dark:text-gray-100">Add Expense</button>
+    </div>
+  </header>
+
+  <div *ngIf="filterActive || sortActive" class="bg-gray-100 dark:bg-gray-900 py-2 px-4 mb-4 flex flex-col border border-gray-100 dark:border-indigo-600 rounded-lg">
+    <!-- Filter and Sort Logic Here -->
+  </div>
+
+  <div *ngIf="viewMode === 'table'">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z1 dark:bg-gray-900">
+      <!-- Expense Name Column -->
+      <ng-container matColumnDef="expense_name">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Expense Name</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">{{ expense.expense_name }}</td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Description</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">{{ expense.description }}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Amount</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">{{ expense.amount }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Status</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">{{ expense.status }}</td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Category</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">{{ expense.category }}</td>
+      </ng-container>
+
+      <!-- Expense Date Column -->
+      <ng-container matColumnDef="expense_date">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Date</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">{{ expense.expense_date | date }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="dark:text-gray-200">Actions</th>
+        <td mat-cell *matCellDef="let expense" class="dark:text-gray-200">
+          <button (click)="viewExpense(expense.expense_id)" class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+            View
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="matColumnDef"></tr>
+      <tr mat-row *matRowDef="let row; columns: matColumnDef"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="viewMode === 'card'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-3">
+    <mat-card *ngFor="let expense of dataSource.data"
+              class="bg-white dark:bg-gray-900 border border-gray-300 p-4 rounded shadow">
+      <mat-card-title>{{ expense.expense_name }}</mat-card-title>
+      <mat-card-content>
+        <p>Description: {{ expense.description }}</p>
+        <p>Amount: {{ expense.amount }}</p>
+        <p>Status: {{ expense.status }}</p>
+        <p>Category: {{ expense.category }}</p>
+        <p>Date: {{ expense.expense_date | date }}</p>
+      </mat-card-content>
+      <button (click)="viewExpense(expense.expense_id)" class="px-4 py-2 border border-gray-300 rounded text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">View</button>
+    </mat-card>
+  </div>
+
+  <mat-paginator [length]="dataSource.data.length" [pageSize]="itemsPerPage" [pageSizeOptions]="[10, 25, 50, 100]"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

@@ -23,6 +23,7 @@ import { SelectOrganizationComponent } from './ui/pages/auth/select-organization
 import { NewCustomerComponent } from './ui/pages/customers/new-customer/new-customer.component';
 import { UpdateCustomerComponent } from './ui/pages/customers/update-customer/update-customer.component';
 import { CustomPaginatorComponent } from './ui/widget/custom-paginator/custom-paginator.component';
+
 import { AllStaffsComponent } from './ui/pages/staff/all-staffs/all-staffs.component';
 import { NewStaffComponent } from './ui/pages/staff/new-staff/new-staff.component';
 import { UpdateStaffComponent } from './ui/pages/staff/update-staff/update-staff.component';
@@ -48,6 +49,8 @@ import { ConfigPageComponent } from './ui/pages/settings/config-page/config-page
 import { ViewRoleComponent } from './ui/pages/settings/view-role/view-role.component';
 import { ComingSoonComponent } from './ui/widget/coming-soon/coming-soon.component';
 import { AddOnsIntegrationsComponent } from './ui/pages/settings/add-ons-integrations/add-ons-integrations.component';
+import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/update-expense.component';
+
 
 @NgModule({
   declarations: [
@@ -84,7 +87,8 @@ import { AddOnsIntegrationsComponent } from './ui/pages/settings/add-ons-integra
     ConfigPageComponent,
     ViewRoleComponent,
     ComingSoonComponent,
-    AddOnsIntegrationsComponent
+    AddOnsIntegrationsComponent,
+    UpdateExpenseComponent
   ],
   imports: [
     BrowserModule,

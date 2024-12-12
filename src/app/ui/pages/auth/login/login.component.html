@@ -14,7 +14,7 @@
           name="email"
           required
           [(ngModel)]="email"
-          class="mt-1 p-2 border border-gray-300 rounded w-full border dark:border-gray-700  rounded  bg-transparent"
+          class="mt-1 p-2 border-gray-300 w-full border dark:border-gray-700  rounded  bg-transparent"
         />
         <!-- Email validation error -->
         <div *ngIf="loginError && !validateEmail(email)" class="text-red-500 text-sm mt-1">

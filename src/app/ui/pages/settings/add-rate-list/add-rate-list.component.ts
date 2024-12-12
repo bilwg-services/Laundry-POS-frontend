@@ -3,7 +3,7 @@ import { RateListService } from '../../../../services/rate-list.service';
 import { Router } from '@angular/router';
 import { LaundryServiceModel } from '../../../../model/laundry_service';
 import { SharedDataService } from '../../../../services/shared';
-import { HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-rate-list',
@@ -14,7 +14,7 @@ export class AddRateListComponent {
 
   services: LaundryServiceModel[] = [];
 
-  constructor(private rateListService: RateListService, private router: Router, private sharedDataService: SharedDataService) {}
+  constructor(private rateListService: RateListService, private snackBar: MatSnackBar, private router: Router, private sharedDataService: SharedDataService) {}
 
   ngOnInit(): void {
     this.services = this.sharedDataService.getServices();
@@ -44,7 +44,10 @@ export class AddRateListComponent {
   helperSaveRateList(newRateList: LaundryServiceModel[]) {
     this.rateListService.createRateList(newRateList).subscribe(response => {
       if(response.status === 200) {
-        console.log("Rate list added successfully.");
+        this.snackBar.open('Rate List created successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
         this.router.navigate(['/settings/rate-list'])
       } else {
         console.error('Failed to fetch rateList:', response.message);

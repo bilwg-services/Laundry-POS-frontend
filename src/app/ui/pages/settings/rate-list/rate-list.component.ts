@@ -5,6 +5,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { LaundryServiceModel } from '../../../../model/laundry_service';
 import { SharedDataService } from '../../../../services/shared';
 import { UpdateServiceModel } from '../../../../model/updateService';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -17,13 +18,19 @@ import { UpdateServiceModel } from '../../../../model/updateService';
 export class RateListComponent {
   searchTerm: unknown;
 
-  constructor(private rateListService: RateListService, private router: Router, private sharedDataService: SharedDataService) { }
+  constructor(private rateListService: RateListService, private snackBar: MatSnackBar, private router: Router, private sharedDataService: SharedDataService) { }
 
   itemsPerPage: number = 10;
   currentPage: number = 1;
   dataShared: boolean = false;
 
   editMode:boolean = false;
+  
+  showAddServiceDialog:boolean = false;
+  rateListForAddService:string = 'Default';
+  toggleAddService() {
+    this.showAddServiceDialog = true;
+  }
 
   ngOnInit(): void {
     this.fetchServices();
@@ -138,15 +145,18 @@ export class RateListComponent {
 
 
   addService() {
-    this.router.navigate(['/settings/rate-list/add-service']);
+    this.router.navigate(['/settings/rate-list/add-service', this.rateListForAddService]);
   }
 
   updateService() {
-    console.log(this.editableService)
     this.rateListService.updateService(this.editableService).subscribe((response) => {
 
       if(response.status === 200) {
-        console.log("Rate list updated successfully")
+        this.snackBar.open('Service updated successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+        console.log("Service updated successfully")
         this.editMode = false
         this.router.navigate(['/settings/rate-list']);
       } else {

@@ -2,55 +2,42 @@
   <div class="w-full max-w-md p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
     <div class="text-end flex justify-end">
       <span (click)="toggleEdit()" *ngIf="!profileEditable" class="material-icons mr-2 cursor-pointer">edit</span>
-      <div (click)="toggleEdit()" *ngIf="profileEditable" class="bg-green-500 rounded-full px-2 pt-2 pb-1 cursor-pointer text-white">
-        <span class="material-icons">check</span>
-      </div>
-  </div>
-    <!-- Header with Logo and Name --> 
+      <span (click)="toggleEdit()" *ngIf="profileEditable" class="material-icons mr-2 cursor-pointer">cancel</span>
+    </div>
+    <!-- Header with Logo and Name -->
     <div class="flex flex-col gap-4 items-center mb-6">
       <div>
         <div class="relative">
           <!-- Image with Edit Icon -->
           <div *ngIf="!profileEditable" class="w-20 h-20">
-            <img
-              [src]="business.logo"
-              alt="User Photo"
-              class="w-full h-full rounded-full border border-gray-300 dark:border-gray-600 object-cover"
-            />
+            <img [src]="business.logo" alt="User Photo"
+              class="w-full h-full rounded-full border border-gray-300 dark:border-gray-600 object-cover" />
           </div>
-        
+
           <!-- Edit icon as a circular button above the image when editable -->
           <div *ngIf="profileEditable" class="relative w-20 h-20">
-            <img
-              [src]="business.logo"
-              alt="User Photo"
-              class="w-full h-full rounded-full border border-gray-300 dark:border-gray-600 object-cover"
-            />
+            <img [src]="business.logo" alt="User Photo"
+              class="w-full h-full rounded-full border border-gray-300 dark:border-gray-600 object-cover" />
             <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
-              <div class="w-full h-full bg-black bg-opacity-60 rounded-full flex items-center justify-center cursor-pointer shadow-md" (click)="fileInput.click()">
+              <div
+                class="w-full h-full bg-black bg-opacity-60 rounded-full flex items-center justify-center cursor-pointer shadow-md"
+                (click)="fileInput.click()">
                 <span class="material-icons text-white">edit</span>
                 <input type="file" #fileInput accept="image/*" class="hidden" onchange="onPhotoChange($event)" />
               </div>
             </div>
           </div>
-        
+
           <!-- File input for image change -->
-          
+
         </div>
       </div>
       <div class="w-full">
-        <h2
-          *ngIf="!profileEditable"
-          class="text-2xl text-center font-bold text-gray-800 dark:text-white truncate"
-        >
+        <h2 *ngIf="!profileEditable" class="text-2xl text-center font-bold text-gray-800 dark:text-white truncate">
           {{ business.name }}
         </h2>
-        <input
-          *ngIf="profileEditable"
-          [(ngModel)]="business.name"
-          type="text"
-          class="w-full px-3 py-2 mt-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-        />
+        <input *ngIf="profileEditable" [(ngModel)]="business.name" type="text"
+          class="w-full px-3 py-2 mt-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
       </div>
     </div>
 
@@ -60,21 +47,14 @@
       <div class="mb-4">
         <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">Phone Number:</label>
         <span *ngIf="!profileEditable" class="text-gray-800 dark:text-gray-200">{{ business.phone }}</span>
-        <input
-          *ngIf="profileEditable"
-          [(ngModel)]="business.phone"
-          type="text"
-          class="w-full px-3 py-2 mt-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-        />
+        <input *ngIf="profileEditable" [(ngModel)]="business.phone" type="text"
+          class="w-full px-3 py-2 mt-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
       </div>
       <div>
         <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">Address:</label>
         <span *ngIf="!profileEditable" class="text-gray-800 dark:text-gray-200">{{ business.address }}</span>
-        <textarea
-          *ngIf="profileEditable"
-          [(ngModel)]="business.address"
-          class="w-full px-3 py-2 mt-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-        ></textarea>
+        <textarea *ngIf="profileEditable" [(ngModel)]="business.address"
+          class="w-full px-3 py-2 mt-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"></textarea>
       </div>
     </div>
 
@@ -84,34 +64,69 @@
     </div>
 
     <!-- Business Hours -->
-    <div class="my-6">
-      <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4">Business Hours</h3>
-      <div *ngFor="let hour of business.hours; let i = index" class="space-y-3">
-        <div *ngIf="!profileEditable">
-          <span class="block text-sm font-medium text-gray-800 dark:text-white">{{ hour.day }}</span>
+    <div class="mt-6 mb-3">
+      <div class="flex justify-between">
+        <h3 class=" text-lg font-semibold text-gray-700 dark:text-gray-200">Business Hours</h3>
+        <span (click)="toggleShowAddDayDialog()" *ngIf="profileEditable && !showAddDayDialog" class="material-icons mr-2 cursor-pointer">add</span>
+        <span (click)="toggleShowAddDayDialog()" *ngIf="showAddDayDialog" class="material-icons mr-2 cursor-pointer">cancel</span>
+      </div>
+      <div class="my-1" *ngFor="let hour of business.hours; let i = index">
+        <div class="flex justify-between items-center" *ngIf="!profileEditable">
+          <div>
+            <span class="block text-sm font-medium text-gray-800 dark:text-white">{{ hour.day }}</span>
           <span class="text-sm text-gray-600 dark:text-gray-400">{{ hour.open }} - {{ hour.close }}</span>
+          </div>
+          <span (click)="deleteBusinessDay(hour.day)" class="material-icons mr-2 cursor-pointer">delete</span>
+          
         </div>
       </div>
-      <div *ngIf="profileEditable" class="space-y-2">
+      <div *ngIf="profileEditable">
+        <div *ngIf="showAddDayDialog" class="mb-3">
         <div>
           <label class="block text-sm text-gray-600 dark:text-gray-400">Day:</label>
-          <input
-            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-          />
+          <input [(ngModel)]="addDay"
+            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
         </div>
         <div>
           <label class="block text-sm text-gray-600 dark:text-gray-400">Open:</label>
-          <input
-            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-          />
+          <input [(ngModel)] = "addDayOpen"
+            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
         </div>
         <div>
           <label class="block text-sm text-gray-600 dark:text-gray-400">Close:</label>
-          <input
-            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none"
-          />
+          <input [(ngModel)] = "addDayClose"
+            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
+        </div>
+        <button type="button" (click)="addBusinessDay()"
+        class="mt-6 py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors">
+          Add Business Day
+      </button>
+      </div>
+
+        <div class="mb-3" *ngFor="let days of business.hours; let i = index">
+          <h3>Day {{i + 1}}</h3>
+        <div>
+          <label class="block text-sm text-gray-600 dark:text-gray-400">Day:</label>
+          <input [(ngModel)]="days.day"
+            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-600 dark:text-gray-400">Open:</label>
+          <input [(ngModel)]="days.open"
+            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-600 dark:text-gray-400">Close:</label>
+          <input [(ngModel)]="days.close"
+            class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 outline-none" />
         </div>
       </div>
+      </div>
+      <!-- Update Button -->
+      <button (click)="updateBusinessProfile()" *ngIf="profileEditable" type="button"
+        class="mt-6 w-full py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors">
+        Update
+      </button>
     </div>
   </div>
 </div>

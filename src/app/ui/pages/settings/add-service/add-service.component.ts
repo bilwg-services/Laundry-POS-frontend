@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RateListService } from '../../../../services/rate-list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Customer } from '../../../../model/customers';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LaundryServiceModel } from '../../../../model/laundry_service';
 
 @Component({
@@ -16,7 +15,8 @@ export class AddServiceComponent {
   viewMode: 'form' | 'csv' = 'form';
   private updating = false;
 
-  constructor(private fb: FormBuilder, private rateListServive: RateListService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private fb: FormBuilder, private rateListServive: RateListService, private snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
+    this.rateListName =  this.rateListName = this.route.snapshot.paramMap.get('rateList') ?? '';
     this.serviceForm = this.fb.group({
       name: ['', Validators.required],
       price: ['', Validators.required],
@@ -30,10 +30,12 @@ export class AddServiceComponent {
       tax_enabled: [false],
       gstAmount: [0],
       total: [0],
-      price_list_id: ['Default'],
+      price_list_id: [this.rateListName],
     });
     // this.setupValueChanges();
   }
+
+  rateListName:string = ''
 
   ngOnInit(): void {}
 

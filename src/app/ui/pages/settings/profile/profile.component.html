@@ -3,10 +3,7 @@
     <!-- Header with Photo and Name -->
     <div class="text-end flex justify-end">
       <span (click)="toggleEdit()" *ngIf="!profileEditable" class="material-icons mr-2 cursor-pointer">edit</span>
-      <div (click)="toggleEdit()" *ngIf="profileEditable"
-        class="bg-green-500 rounded-full px-2 pt-2 pb-1 cursor-pointer text-white">
-        <span class="material-icons">check</span>
-      </div>
+      <span (click)="toggleEdit()" *ngIf="profileEditable" class="material-icons mr-2 cursor-pointer">cancel</span>
     </div>
 
     <div class="flex flex-col gap-4 items-center mb-6">
@@ -67,8 +64,10 @@
       </div>
     </div>
 
-    <!-- Edit Button -->
-    <div class="text-center">
-    </div>
+    <!-- Update Button -->
+    <button *ngIf="profileEditable" type="button"
+      class="w-full py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors">
+      Update
+    </button>
   </div>
 </div>

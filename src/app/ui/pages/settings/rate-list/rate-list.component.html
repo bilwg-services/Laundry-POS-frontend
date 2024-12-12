@@ -212,7 +212,6 @@
         [(ngModel)]='rateListForAddService'
         class="w-full px-3 py-2 border dark:border-gray-700 rounded bg-transparent focus:outline-none focus:bg-white dark:focus:bg-gray-900"
         name="dropdown" required>
-        <option value="" disabled selected>Select an option</option>
         <option *ngFor="let list of priceLists">
           {{ list }}
         </option>

@@ -50,6 +50,10 @@ export class BusinessProfileComponent {
     }
    
   }
+  // delete business day
+  deleteBusinessDay(dayName:string) {
+    this.business.hours = this.business.hours.filter((day) => day.day !== dayName)
+  }
 
   updateBusinessProfile() {
     this.addDay = this.addDayOpen = this.addDayClose = '';

@@ -70,10 +70,14 @@
         <span (click)="toggleShowAddDayDialog()" *ngIf="profileEditable && !showAddDayDialog" class="material-icons mr-2 cursor-pointer">add</span>
         <span (click)="toggleShowAddDayDialog()" *ngIf="showAddDayDialog" class="material-icons mr-2 cursor-pointer">cancel</span>
       </div>
-      <div *ngFor="let hour of business.hours; let i = index">
-        <div *ngIf="!profileEditable">
-          <span class="block text-sm font-medium text-gray-800 dark:text-white">{{ hour.day }}</span>
+      <div class="my-1" *ngFor="let hour of business.hours; let i = index">
+        <div class="flex justify-between items-center" *ngIf="!profileEditable">
+          <div>
+            <span class="block text-sm font-medium text-gray-800 dark:text-white">{{ hour.day }}</span>
           <span class="text-sm text-gray-600 dark:text-gray-400">{{ hour.open }} - {{ hour.close }}</span>
+          </div>
+          <span (click)="deleteBusinessDay(hour.day)" class="material-icons mr-2 cursor-pointer">delete</span>
+          
         </div>
       </div>
       <div *ngIf="profileEditable">

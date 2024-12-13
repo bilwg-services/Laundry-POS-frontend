@@ -50,6 +50,8 @@ import { ViewRoleComponent } from './ui/pages/settings/view-role/view-role.compo
 import { ComingSoonComponent } from './ui/widget/coming-soon/coming-soon.component';
 import { AddOnsIntegrationsComponent } from './ui/pages/settings/add-ons-integrations/add-ons-integrations.component';
 import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/update-expense.component';
+import { ConfirmDialogComponent } from './ui/widget/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -88,7 +90,8 @@ import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/updat
     ViewRoleComponent,
     ComingSoonComponent,
     AddOnsIntegrationsComponent,
-    UpdateExpenseComponent
+    UpdateExpenseComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +108,7 @@ import { UpdateExpenseComponent } from './ui/pages/expenses/update-expense/updat
     MatCardModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [
     provideAnimationsAsync()

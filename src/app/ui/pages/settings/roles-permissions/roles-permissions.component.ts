@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RolesModel } from '../../../../model/roles';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../../widget/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-roles-permissions',
@@ -72,11 +74,11 @@ export class RolesPermissionsComponent implements OnInit {
   dataSource = [...this.originalDataSource]; // Data source for display
   selectedFilter = 'All Roles'; // Default filter (all roles)
   sortOrder: 'asc' | 'desc' = 'asc'; // Default sort order
-  
+
   selectSortKeys: string[] = ['Name', 'Status', 'Permissions', 'Type'];
   selectedSortKey: string = 'Name';
 
-  constructor(private router: Router) { }
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     const roleNames = new Set(this.originalDataSource.map(role => role.name));
@@ -126,28 +128,28 @@ export class RolesPermissionsComponent implements OnInit {
 
   applySort() {
     console.log("Inside applySort");
-  
+
     const sortKey = this.selectedSortKey as keyof RolesModel; // Ensure the key is valid for the object
-  
+
     // Sort the dataSource array based on the selected key
     this.dataSource.sort((a, b) => {
       const valueA = a[sortKey];
       const valueB = b[sortKey];
-  
+
       // Compare values, handling string and non-string cases
       if (typeof valueA === 'string' && typeof valueB === 'string') {
         return this.sortOrder === 'asc'
           ? valueA.localeCompare(valueB)
           : valueB.localeCompare(valueA);
       }
-  
+
       // Fallback for non-string comparisons
       return this.sortOrder === 'asc' ? (valueA < valueB ? -1 : 1) : (valueA > valueB ? -1 : 1);
     });
-  
+
     console.log("Sorted dataSource:", this.dataSource);
   }
-  
+
 
   addStaff() {
     // Example logic to add a new staff (replace with your logic)
@@ -175,9 +177,18 @@ export class RolesPermissionsComponent implements OnInit {
 
   deleteRole(role: any) {
 
-    this.originalDataSource = this.originalDataSource.filter((item) => item !== role);
-    this.dataSource = [...this.originalDataSource]; // Refresh the data source
-    console.log('Deleted staff:', role);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === "confirm") {
+        this.originalDataSource = this.originalDataSource.filter((item) => item !== role);
+        this.dataSource = [...this.originalDataSource]; // Refresh the data source
+        console.log('Deleted staff:', role);
+      }
+    })
+
+    
+
   }
 
   toggleEdit() {
